@@ -1,30 +1,21 @@
-package bank.entity;
+package bank.dto;
 
 import java.util.List;
 
-public class Account {
-    private int id;
+public class AccountDTO {
+
     private List<Integer> idCard;
-    private Integer amount;
     private String email;
+    private Integer amount;
     private String password;
 
-    public Account() { }
+    public AccountDTO() { }
 
-    public Account(int id, List<Integer> idCard, Integer amount, String email, String password) {
-        this.id = id;
+    public AccountDTO(List<Integer> idCard, Integer amount, String email, String password) {
         this.idCard = idCard;
         this.amount = amount;
         this.email = email;
         this.password = password;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public List<Integer> getIdCard() {
