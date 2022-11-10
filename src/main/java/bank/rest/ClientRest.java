@@ -4,10 +4,8 @@ import bank.dto.ClientDTO;
 import bank.service.ClientService;
 import bank.service.impl.ClientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/client")
@@ -16,9 +14,27 @@ public class ClientRest {
     @Autowired
     private final ClientService clientService = new ClientServiceImpl();
 
-    @PostMapping("create")
-    public String create(final @RequestBody ClientDTO clientDto) {
-        clientService.create(clientDto);
-        return "All good";
+    @PostMapping
+    public ResponseEntity<ClientDTO> create(final @RequestBody ClientDTO consultantDto) {
+        clientService.create(consultantDto);
+        return ResponseEntity.ok(consultantDto);
+    }
+
+    @PutMapping
+    public ResponseEntity<ClientDTO> put(final @RequestBody ClientDTO consultantDto) {
+        clientService.update(consultantDto);
+        return ResponseEntity.ok(consultantDto);
+    }
+
+    @GetMapping
+    public ClientDTO get(final @RequestBody Long id) {
+        return clientService.read(id);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<ClientDTO> delete(final @RequestBody Long id) {
+        final ClientDTO consultantDTO = get(id);
+        clientService.delete(id);
+        return ResponseEntity.ok(consultantDTO);
     }
 }
