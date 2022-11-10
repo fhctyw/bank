@@ -1,16 +1,12 @@
 package bank.db;
 
 import bank.entity.Account;
-import bank.entity.Consultant;
 import bank.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.io.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FileAccount implements BankDB {
@@ -44,7 +40,7 @@ public class FileAccount implements BankDB {
         final Long idClient = Long.parseLong(fields[1]);
         final Long idCurrency = Long.parseLong(fields[2]);
         final List<Long> idCards = Stream.of(Long.parseLong(fields[3])).toList();
-        final BigDecimal amount = new BigDecimal(Long.parseLong(fields[4]));
+        final BigDecimal amount = new BigDecimal(fields[4]);
 
         return new Account(id, idClient, idCurrency, idCards, amount);
     }

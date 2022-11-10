@@ -2,7 +2,6 @@ package bank.service.impl;
 
 import bank.dto.AccountDTO;
 import bank.entity.Account;
-import bank.entity.Consultant;
 import bank.mapper.MapperAccount;
 import bank.repository.AccountRepository;
 import bank.service.AccountService;
@@ -32,11 +31,11 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void update(final AccountDTO dto) {
-
+        accountRepository.update(dto.getIdClient(),dto);
     }
 
     @Override
     public void delete(final Long id) { ///idClient
-
+        accountRepository.delete(id);
     }
 }
