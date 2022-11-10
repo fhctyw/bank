@@ -18,24 +18,25 @@ public class AccountServiceImpl implements AccountService {
     final AccountRepository accountRepository = new AccountRepository();
 
     @Override
-    public void create(AccountDTO dto) {
+    public void create(final AccountDTO dto) {
         final Account account = mapperAccount.toEntity(dto);
         accountRepository.add(account);
     }
 
     @Override
-    public Account read(int id) {
-//        if(accountRepository.read(id) != null)///////////
-        return  accountRepository.read(id);
+    public AccountDTO read(final Long id) { ///  idClient
+        final Account account = accountRepository.get(id);
+        final AccountDTO dto = mapperAccount.toDTO(account);
+        return  dto;
     }
 
     @Override
-    public void update(AccountDTO dto) {
+    public void update(final AccountDTO dto) {
 
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(final Long id) { ///idClient
 
     }
 }

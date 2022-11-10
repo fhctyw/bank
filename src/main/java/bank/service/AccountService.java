@@ -5,7 +5,7 @@ import bank.entity.Account;
 
 public interface AccountService {
     void create(AccountDTO dto);
-    Account read(int id);
+    AccountDTO read(Long id);
     void update(AccountDTO dto);
-    void delete(int id);
+    void delete(Long id);
 }
