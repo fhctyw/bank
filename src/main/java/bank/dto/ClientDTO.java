@@ -1,51 +1,23 @@
 package bank.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClientDTO {
+    @NotBlank
     private String fullName;
+    @Email
     private String email;
-    private int id;
-    private int phoneNumber;
-
-    public ClientDTO() {
-
-    }
-
-    public ClientDTO(String fullName, String email, int id, int phoneNumber) {
-        this.fullName = fullName;
-        this.email = email;
-        this.id = id;
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+    @NotNull
+    private Long id;
+    @NotBlank
+    private String phoneNumber;
 }
