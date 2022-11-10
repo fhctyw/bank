@@ -1,7 +1,6 @@
 package bank.service;
 
 import bank.dto.AccountDTO;
-import bank.entity.Account;
 
 public interface AccountService {
     void create(AccountDTO dto);

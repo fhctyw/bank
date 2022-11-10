@@ -1,10 +1,9 @@
 package bank.repository;
 
 import bank.db.FileAccount;
-import bank.db.FileConsultant;
 import bank.dto.AccountDTO;
 import bank.entity.Account;
-import bank.mapper.MapperAccount;
+import bank.entity.Consultant;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -53,7 +52,6 @@ public class AccountRepository {
 
         fileAccount.write();
     }
-
     public List<Account> getAccounts() {
         return accounts;
     }
