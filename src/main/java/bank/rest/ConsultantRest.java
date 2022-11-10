@@ -1,9 +1,10 @@
 package bank.rest;
 
-import bank.dto.ConsultantDto;
+import bank.dto.ConsultantDTO;
 import bank.service.ConsultantService;
 import bank.service.impl.ConsultantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,9 +13,27 @@ public class ConsultantRest {
     @Autowired
     private final ConsultantService consultantService = new ConsultantServiceImpl();
 
-    @PostMapping("create")
-    public String create(final @RequestBody ConsultantDto consultantDto) {
+    @PostMapping
+    public ResponseEntity<ConsultantDTO> create(final @RequestBody ConsultantDTO consultantDto) {
         consultantService.create(consultantDto);
-        return "All good";
+        return ResponseEntity.ok(consultantDto);
+    }
+
+    @PutMapping
+    public ResponseEntity<ConsultantDTO> put(final @RequestBody ConsultantDTO consultantDto) {
+        consultantService.update(consultantDto);
+        return ResponseEntity.ok(consultantDto);
+    }
+
+    @GetMapping
+    public ConsultantDTO get(final @RequestBody Long id) {
+        return consultantService.read(id);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<ConsultantDTO> delete(final @RequestBody Long id) {
+        final ConsultantDTO consultantDTO = get(id);
+        consultantService.delete(id);
+        return ResponseEntity.ok(consultantDTO);
     }
 }
