@@ -20,4 +20,9 @@ public class Client {
     private Long id;
     @NotBlank
     private String phoneNumber;
+
+    @Override
+    public String toString() {
+        return fullName + " " + email + " " + id + " " + phoneNumber;
+    }
 }
