@@ -5,7 +5,7 @@ import bank.entity.Client;
 
 public interface ClientService {
     void create(ClientDTO dto);
-    Client read(int id);
+    ClientDTO read(Long id);
     void update(ClientDTO dto);
-    void delete(int id);
+    void delete(Long id);
 }

@@ -24,17 +24,17 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client read(int id) {
-        return null;
+    public ClientDTO read(final Long id) {
+        return mapperClient.toDTO(clientRepository.findById(id));
     }
 
     @Override
-    public void update(ClientDTO dto) {
-
+    public void update(final ClientDTO dto) {
+        clientRepository.setClient(dto.getId(), mapperClient.toEntity(dto));
     }
 
     @Override
-    public void delete(int id) {
-
+    public void delete(final Long id) {
+        clientRepository.deleteClient(id);
     }
 }

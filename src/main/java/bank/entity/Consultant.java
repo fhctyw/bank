@@ -1,32 +1,19 @@
 package bank.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Consultant {
-    private int id;
+    private Long id;
     private String fullName;
 
-    public Consultant(final int id, final String fullName) {
-        this.id = id;
-        this.fullName = fullName;
-    }
-
-    public Consultant() {
-
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(final int id) {
-        this.id = id;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(final String fullName) {
-        this.fullName = fullName;
+    @Override
+    public String toString() {
+        return id + " " + fullName;
     }
 }

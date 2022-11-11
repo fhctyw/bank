@@ -9,18 +9,21 @@ public class MapperAccount {
 
     public AccountDTO toDTO(final Account account) {
         final AccountDTO dto = new AccountDTO();
-        dto.setEmail(account.getEmail());
-        dto.setPassword(account.getPassword());
+        dto.setId(account.getId());
+        dto.setIdClient(account.getIdClient());
+        dto.setIdCards(account.getIdCards());
+        dto.setIdCurrency(account.getIdCurrency());
         dto.setAmount(account.getAmount());
-        dto.setIdCard(account.getIdCard());
         return dto;
     }
+
     public Account toEntity(final AccountDTO dto) {
         final Account account = new Account();
-        account.setEmail(dto.getEmail());
-        account.setPassword(dto.getPassword());
+        account.setId(dto.getId());
+        account.setIdClient(dto.getIdClient());
+        account.setIdCards(dto.getIdCards());
+        account.setIdCurrency(dto.getIdCurrency());
         account.setAmount(dto.getAmount());
-        account.setIdCard(dto.getIdCard());
         return account;
     }
 }
