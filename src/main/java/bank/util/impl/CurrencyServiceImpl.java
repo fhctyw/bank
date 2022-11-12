@@ -1,4 +1,4 @@
-package bank.service.impl;
+package bank.util.impl;
 
 import bank.dto.CurrencyDTO;
 import bank.entity.Currency;

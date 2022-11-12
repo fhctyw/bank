@@ -2,7 +2,7 @@ package bank.resource;
 
 import bank.dto.ConsultantDTO;
 import bank.service.ConsultantService;
-import bank.service.impl.ConsultantServiceImpl;
+import bank.util.impl.ConsultantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

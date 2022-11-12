@@ -1,8 +1,6 @@
-package bank.service.impl;
+package bank.util.impl;
 
-import bank.dto.AccountDTO;
 import bank.dto.TransactionDTO;
-import bank.entity.Account;
 import bank.entity.Transaction;
 import bank.mapper.MapperTransaction;
 import bank.repository.TransactionRepository;

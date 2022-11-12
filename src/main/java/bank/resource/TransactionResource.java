@@ -2,7 +2,7 @@ package bank.resource;
 
 import bank.dto.TransactionDTO;
 import bank.service.TransactionService;
-import bank.service.impl.TransactionServiceImpl;
+import bank.util.impl.TransactionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

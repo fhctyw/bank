@@ -2,7 +2,7 @@ package bank.resource;
 
 import bank.dto.CardDTO;
 import bank.service.CardService;
-import bank.service.impl.CardServiceImpl;
+import bank.util.impl.CardServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

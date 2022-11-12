@@ -2,7 +2,7 @@ package bank.resource;
 
 import bank.dto.ClientDTO;
 import bank.service.ClientService;
-import bank.service.impl.ClientServiceImpl;
+import bank.util.impl.ClientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
