@@ -2,9 +2,7 @@ package bank.mapper;
 
 
 import bank.dto.CardDTO;
-import bank.dto.ConsultantDto;
 import bank.entity.Card;
-import bank.entity.Consultant;
 import org.springframework.stereotype.Component;
 
 @Component

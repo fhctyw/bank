@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 public class CardRepository {
     final List<Card> cards = new ArrayList<>();
-    int id = 0;
+    private Long id = 0L;
     int cardNumber = 100000000;
 
     public void add(final Card card){
@@ -29,4 +29,6 @@ public class CardRepository {
         add(new Card(0,0,0,0));
     }
 
+    public Card get(Long id) {
+    }
 }

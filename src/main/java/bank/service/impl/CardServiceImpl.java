@@ -23,8 +23,8 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public Card read(final int id){
-        return null;
+    public CardDTO read(final Long id){
+        return mapperCard.toDto(cardRepository(cardRepository.fi));
     }
     @Override
     public void update(final CardDTO dto){
