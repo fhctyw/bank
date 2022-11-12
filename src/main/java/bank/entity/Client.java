@@ -12,13 +12,9 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Client {
-    @NotBlank
     private String fullName;
-    @Email
     private String email;
-    @NotNull
     private Long id;
-    @NotBlank
     private String phoneNumber;
 
     @Override

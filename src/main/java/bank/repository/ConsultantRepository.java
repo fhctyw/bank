@@ -1,35 +1,56 @@
 package bank.repository;
 
-import bank.db.FileConsultant;
 import bank.entity.Consultant;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import bank.util.JacksonUtil;
+import com.fasterxml.jackson.core.type.TypeReference;
+import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Component
+@Repository
 public class ConsultantRepository {
-    private final List<Consultant> consultants = new ArrayList<>();
-    private Long id = 0L;
+    private final String source = "consultants.txt";
+    private List<Consultant> consultants = new ArrayList<>();
+    private Long id;
 
-    final FileConsultant fileConsultant = new FileConsultant(this);
+    @PostConstruct
+    public void postConstructor() {
+        final Path file = Paths.get(source);
+        try {
+            consultants = JacksonUtil.deserialize(Files.readString(file, StandardCharsets.UTF_16), new TypeReference<List<Consultant>>() {
+            });
 
-    public ConsultantRepository() {
-        fileConsultant.read();
+            if (consultants == null) {
+                consultants = new ArrayList<>();
+                return;
+            }
+
+            final long maxId = consultants.stream().mapToLong(Consultant::getId).max().orElse(1);
+
+            id = maxId + 1;
+
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public List<Consultant> getConsultants() {
-        return consultants;
-    }
+    @PreDestroy
+    public void preDestroy() {
+        final Path file = Paths.get(source);
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
+        try {
+            Files.writeString(file, JacksonUtil.serialize(consultants), StandardCharsets.UTF_16);
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void add(final Consultant consultant) {
@@ -37,8 +58,6 @@ public class ConsultantRepository {
         finalConsultant.setId(++id);
         finalConsultant.setFullName(consultant.getFullName());
         consultants.add(finalConsultant);
-
-        fileConsultant.write();
     }
 
     public Consultant findById(final Long id) {
@@ -50,12 +69,12 @@ public class ConsultantRepository {
         c.setId(consultant.getId());
         c.setFullName(consultant.getFullName());
 
-        fileConsultant.write();
     }
 
     public void deleteConsultant(final Long id) {
-        consultants.removeIf(e->e.getId().equals(id));
+        consultants.removeIf(e -> e.getId().equals(id));
 
-        fileConsultant.write();
     }
+
+
 }

@@ -1,10 +1,7 @@
-package bank.rest;
+package bank.resource;
 
-import bank.dto.AccountDTO;
 import bank.dto.TransactionDTO;
-import bank.service.AccountService;
 import bank.service.TransactionService;
-import bank.service.impl.AccountServiceImpl;
 import bank.service.impl.TransactionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/transaction")
-public class TransactionRest {
+public class TransactionResource {
     @Autowired
     private final TransactionService transactionService = new TransactionServiceImpl();
 

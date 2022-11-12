@@ -6,16 +6,17 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.validation.constraints.NotBlank;
+import java.math.BigDecimal;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Consultant {
-    private Long id;
-    private String fullName;
+@AllArgsConstructor
+public class Currency {
+    private String code;
+    private BigDecimal value;
 
     @Override
     public String toString() {
-        return id + " " + fullName;
+        return code + " " + value;
     }
 }

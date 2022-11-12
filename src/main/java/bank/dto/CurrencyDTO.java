@@ -4,13 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ConsultantDTO {
-    private Long id;
-    @NotBlank
-    private String fullName;
+public class CurrencyDTO {
+    private String code;
+    private BigDecimal value;
 }
