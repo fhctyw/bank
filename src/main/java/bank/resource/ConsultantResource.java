@@ -1,20 +1,21 @@
-package bank.rest;
+package bank.resource;
 
 import bank.dto.ConsultantDTO;
 import bank.service.ConsultantService;
 import bank.service.impl.ConsultantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/consultant")
-public class ConsultantRest {
+public class ConsultantResource {
     @Autowired
     private final ConsultantService consultantService = new ConsultantServiceImpl();
 
     @PostMapping
-    public ResponseEntity<ConsultantDTO> create(final @RequestBody ConsultantDTO consultantDto) {
+    public ResponseEntity<ConsultantDTO> create(final @RequestBody @Validated ConsultantDTO consultantDto) {
         consultantService.create(consultantDto);
         return ResponseEntity.ok(consultantDto);
     }

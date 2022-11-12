@@ -1,20 +1,15 @@
-package bank.rest;
+package bank.resource;
 
 import bank.dto.AccountDTO;
-import bank.dto.ClientDTO;
-import bank.dto.ConsultantDTO;
-import bank.entity.Account;
 import bank.service.AccountService;
-import bank.service.ClientService;
 import bank.service.impl.AccountServiceImpl;
-import bank.service.impl.ClientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/account")
-public class AccountRest {
+public class AccountResource {
     @Autowired
     private final AccountService accountService = new AccountServiceImpl();
 
