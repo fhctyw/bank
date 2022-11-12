@@ -2,6 +2,7 @@ package bank.rest;
 
 import bank.dto.AccountDTO;
 import bank.dto.TransactionDTO;
+import bank.entity.Transaction;
 import bank.service.AccountService;
 import bank.service.TransactionService;
 import bank.service.impl.AccountServiceImpl;
@@ -9,6 +10,8 @@ import bank.service.impl.TransactionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/transaction")
@@ -30,7 +33,10 @@ public class TransactionRest {
     public TransactionDTO get(final @RequestBody Long id) {
         return transactionService.read(id);
     }
-
+    @GetMapping("history")
+    public List<Transaction> getAll(final @RequestBody Long id) {
+        return transactionService.readAll(id);
+    }
     @DeleteMapping
     public ResponseEntity<TransactionDTO> delete(final @RequestBody Long id) {
         final TransactionDTO transactionDTO = get(id);

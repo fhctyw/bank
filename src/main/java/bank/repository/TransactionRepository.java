@@ -1,27 +1,24 @@
 package bank.repository;
 
-import bank.db.FileAccount;
 import bank.db.FileTransaction;
-import bank.dto.AccountDTO;
 import bank.dto.TransactionDTO;
-import bank.entity.Account;
 import bank.entity.Transaction;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-@Component
+@Repository
 public class TransactionRepository {
     final List<Transaction> transactions = new ArrayList<>();
 
     final FileTransaction fileTransaction = new FileTransaction(this);
 
     public TransactionRepository() {
-        add(new Transaction(null, LocalDateTime.now(), new BigDecimal(0), null, null, ""));
+        fileTransaction.read();
+        //add(new Transaction(null, LocalDateTime.now(), new BigDecimal(0), 0L, 0L, ""));
     }
 
     public void add(final Transaction transaction) {
@@ -33,6 +30,8 @@ public class TransactionRepository {
         finalTransaction.setIdReceiver(transaction.getIdReceiver());
         finalTransaction.setMessage(transaction.getMessage());
         transactions.add(finalTransaction);
+
+        fileTransaction.write();
     }
 
     public void update(final Long id, final TransactionDTO dto) {

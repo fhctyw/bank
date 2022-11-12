@@ -5,18 +5,20 @@ import bank.dto.AccountDTO;
 import bank.entity.Account;
 import bank.entity.Consultant;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Component
+@Repository
 public class AccountRepository {
     final List<Account> accounts = new ArrayList<>();
 
     final FileAccount fileAccount = new FileAccount(this);
     public AccountRepository() {
+        //fileAccount.read();
         add(new Account(null, 0L, 0L, new ArrayList<>(), new BigDecimal(0)));
     }
 
@@ -28,6 +30,8 @@ public class AccountRepository {
         finalAccount.setAmount(account.getAmount());
         finalAccount.setIdCurrency(account.getIdCurrency());
         accounts.add(finalAccount);
+
+        fileAccount.write();
     }
 
     public Account findById(final Long id) {
