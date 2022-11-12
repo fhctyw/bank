@@ -1,4 +1,4 @@
-package bank.rest;
+package bank.resource;
 
 import bank.dto.CardDTO;
 import bank.service.CardService;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/card")
-public class CardRest {
+public class CardResource {
 
     @Autowired
     private final CardService cardService = new CardServiceImpl();

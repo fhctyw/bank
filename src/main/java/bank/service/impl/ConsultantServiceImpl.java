@@ -18,6 +18,7 @@ public class ConsultantServiceImpl implements ConsultantService {
 
     @Override
     public void create(final ConsultantDTO dto) {
+
         final Consultant consultant = mapperConsultant.toEntity(dto);
         consultantRepository.add(consultant);
     }
