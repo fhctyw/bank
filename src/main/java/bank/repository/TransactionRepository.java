@@ -63,7 +63,7 @@ public class TransactionRepository {
     public void delete(final Long id) {
         transactions.removeIf(e -> e.getId().equals(id));
 
-        fileTransaction.write();
+       fileTransaction.write();
     }
 
 }

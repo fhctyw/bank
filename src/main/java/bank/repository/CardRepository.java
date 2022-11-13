@@ -9,26 +9,35 @@ import java.util.List;
 
 @Component
 public class CardRepository {
-    final List<Card> cards = new ArrayList<>();
-    private Long id = 0L;
-    int cardNumber = 100000000;
+    private final String source = "card.txt";
+    private  List<Card> cards = new ArrayList<>();
+    private Long id;
+    private Long cardNumber;
 
     public void add(final Card card){
-        final Card finalCard = new Card();
-        finalCard.setCardNumber(cardNumber++);
-        finalCard.setAmount(card.getAmount());
-        finalCard.setIdCard(id++);
-        finalCard.setIdClient(card.getIdClient());
-        cards.add(finalCard);
+        final Card cardFinal = new Card();
+        cardFinal.setId(++id);
+        cardFinal.setCardNumber(++cardNumber);
+        cardFinal.setIdClient(card.getIdClient());
+        cardFinal.setAmount(card.getAmount());
+        cards.add(cardFinal);
+    }
 
+    public Card findById(final Long id){
+        return cards.stream().filter(e->e.getId().equals(id)).findFirst().orElseThrow();
+    }
+
+    public void setCard(final Long id, final Card card){
+        final Card c = findById(id);
+        c.setCardNumber(card.getCardNumber());
+        c.setIdClient(card.getCardNumber());
+    }
+
+    public void deleteCard(final Long id){
+        cards.removeIf(e->e.getId().equals(id));
     }
 
 
-    public CardRepository() {
-        add(new Card(0,0,0,0));//id client!!!!!!!!!!!
-        add(new Card(0,0,0,0));
-    }
 
-    public Card get(Long id) {
-    }
+
 }

@@ -1,52 +1,19 @@
 package bank.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
+import java.util.UUID;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CardDTO {
-    private int idCard;
-    private double amount;
-    private long cardNumber;
-    private int idClient;
-
-    public CardDTO(int idCard, double amount, long cardNumber, int idClient) {
-        this.idCard = idCard;
-        this.amount = amount;
-        this.cardNumber = cardNumber;
-        this.idClient = idClient;
-    }
-
-    public CardDTO() {
-
-    }
-
-    public int getIdCard() {
-        return idCard;
-    }
-
-    public void setIdCard(int idCard) {
-        this.idCard = idCard;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public long getCardNumber() {
-        return cardNumber;
-    }
-
-    public void setCardNumber(long cardNumber) {
-        this.cardNumber = cardNumber;
-    }
-
-    public int getIdClient() {
-        return idClient;
-    }
-
-    public void setIdClient(int idClient) {
-        this.idClient = idClient;
-    }
+    private Long idCard;
+    private BigDecimal amount;
+    private Long cardNumber;
+    private Long idClient;
 
 }

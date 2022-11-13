@@ -17,22 +17,25 @@ public class CardServiceImpl implements CardService {
     final CardRepository cardRepository = new CardRepository();
 
     @Override
-    public void create(final CardDTO dto){
+    public void create(final CardDTO dto) {
         final Card card = mapperCard.toEntity(dto);
         cardRepository.add(card);
     }
 
     @Override
-    public CardDTO read(final Long id){
-        return mapperCard.toDto(cardRepository(cardRepository.fi));
+    public CardDTO read(final Long id) {
+        return mapperCard.toDto(cardRepository.findById(id));
     }
-    @Override
-    public void update(final CardDTO dto){
 
+
+    @Override
+    public void update(final CardDTO dto) {
+        cardRepository.setCard(dto.getIdCard(),mapperCard.toEntity(dto));
     }
-    @Override
-    public void delete(final int id){
 
+    @Override
+    public void delete(final Long id) {
+        cardRepository.deleteCard(id);
     }
 
 
