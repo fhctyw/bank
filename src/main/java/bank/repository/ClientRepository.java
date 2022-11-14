@@ -14,7 +14,7 @@ public class ClientRepository {
     //final FileClient fileClient = new FileClient(this);
 
     public ClientRepository() {
-     //   fileClient.read();
+        //fileClient.read();
     }
     public List<Client> getClients() {
         return clients;
@@ -34,7 +34,7 @@ public class ClientRepository {
         finalClient.setPhoneNumber(client.getPhoneNumber());
         clients.add(finalClient);
 
-      //  fileClient.write();
+        //fileClient.write();
     }
 
     public Client findById(final Long id) {
@@ -54,6 +54,6 @@ public class ClientRepository {
     public void deleteClient(final Long id) {
         clients.removeIf(e->e.getId().equals(id));
 
-       // fileClient.write();
+        //fileClient.write();
     }
 }

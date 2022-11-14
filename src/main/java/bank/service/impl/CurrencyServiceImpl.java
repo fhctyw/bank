@@ -1,18 +1,22 @@
 package bank.service.impl;
 
+
 import bank.dto.CurrencyDTO;
 import bank.entity.Currency;
 import bank.mapper.MapperCurrency;
 import bank.repository.CurrencyRepository;
 import bank.service.CurrencyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
 public class CurrencyServiceImpl implements CurrencyService {
 
+    @Autowired
     private final MapperCurrency mapperCurrency;
+    @Autowired
     private final CurrencyRepository currencyRepository;
 
     @Override
