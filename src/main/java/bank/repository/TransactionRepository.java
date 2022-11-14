@@ -1,7 +1,5 @@
 package bank.repository;
 
-import bank.db.FileAccount;
-import bank.db.FileTransaction;
 import bank.dto.AccountDTO;
 import bank.dto.TransactionDTO;
 import bank.entity.Account;
@@ -18,7 +16,7 @@ import java.util.UUID;
 public class TransactionRepository {
     final List<Transaction> transactions = new ArrayList<>();
 
-    final FileTransaction fileTransaction = new FileTransaction(this);
+    //final FileTransaction fileTransaction = new FileTransaction(this);
 
     public TransactionRepository() {
         add(new Transaction(null, LocalDateTime.now(), new BigDecimal(0), null, null, ""));
@@ -44,7 +42,7 @@ public class TransactionRepository {
         update.setIdReceiver(dto.getIdReceiver());
         update.setMessage(dto.getMessage());
 
-        fileTransaction.write();
+        //fileTransaction.write();
 
     }
 
@@ -63,7 +61,7 @@ public class TransactionRepository {
     public void delete(final Long id) {
         transactions.removeIf(e -> e.getId().equals(id));
 
-       fileTransaction.write();
+       //fileTransaction.write();
     }
 
 }

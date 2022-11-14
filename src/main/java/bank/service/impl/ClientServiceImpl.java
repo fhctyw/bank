@@ -1,4 +1,4 @@
-package bank.util.impl;
+package bank.service.impl;
 
 import bank.dto.ClientDTO;
 import bank.entity.Client;

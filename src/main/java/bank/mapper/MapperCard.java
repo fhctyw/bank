@@ -1,6 +1,5 @@
 package bank.mapper;
 
-
 import bank.dto.CardDTO;
 import bank.entity.Card;
 import org.springframework.stereotype.Component;
@@ -10,7 +9,7 @@ public class MapperCard {
 
     public CardDTO toDto(final Card card) {
         final CardDTO dto = new CardDTO();
-        dto.setIdCard(card.getIdCard());
+        //dto.setIdCard(card.getIdCard());
         dto.setAmount(card.getAmount());
         dto.setCardNumber(card.getCardNumber());
         dto.setIdClient(card.getIdClient());
