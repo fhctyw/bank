@@ -1,6 +1,5 @@
 package bank.repository;
 
-import bank.db.FileCurrency;
 import bank.entity.Consultant;
 import bank.entity.Currency;
 import org.springframework.stereotype.Component;
@@ -11,7 +10,7 @@ import java.util.List;
 @Component
 public class CurrencyRepository {
     final private List<Currency> currencies = new ArrayList<>();
-    final public FileCurrency fileCurrency = new FileCurrency(this);
+    //final public FileCurrency fileCurrency = new FileCurrency(this);
     private Long id = 0L;
 
     public List<Currency> getCurrencies() {
@@ -26,14 +25,14 @@ public class CurrencyRepository {
         this.id = id;
     }
 
-    public CurrencyRepository() {
-        fileCurrency.read();
-    }
+   // public CurrencyRepository() {
+      //  fileCurrency.read();
+    //}
 
     public void addCurrency(final Currency currency) {
         currencies.add(currency);
 
-        fileCurrency.write();
+       // fileCurrency.write();
     }
     public Currency findByCode(final String code) {
         return currencies.stream().filter(e->e.getCode().equals(code)).findFirst().orElseThrow();
@@ -44,11 +43,11 @@ public class CurrencyRepository {
         c.setCode(currency.getCode());
         c.setValue(currency.getValue());
 
-        fileCurrency.write();
+      //  fileCurrency.write();
     }
 
     public void deleteCurrency(final String code) {
         currencies.removeIf(e->e.getCode().equals(code));
-        fileCurrency.write();
+     //   fileCurrency.write();
     }
 }

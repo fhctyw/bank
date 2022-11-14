@@ -38,6 +38,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void delete(final Long id) { ///idClient
-        accountRepository.delete(id);
+        accountRepository.deleteByClientId(id);
     }
 }

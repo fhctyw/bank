@@ -38,13 +38,9 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<Transaction> readAll(Long id) {
-        List<Transaction> transaction  = new ArrayList<>();
-        transaction =  transactionRepository.getTransactions()
-                .stream()
-                .filter(e->e.getIdSender().equals(id))
-                .collect(Collectors.toList());
-        return transaction;
+    public List<TransactionDTO> readAll(Long id) {
+        return  transactionRepository.getTransactions().stream()
+                .map(mapperTransaction::toDTO).collect(Collectors.toList());
     }
 
     @Override

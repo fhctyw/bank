@@ -8,7 +8,7 @@ import java.util.List;
 public interface TransactionService {
     void create(TransactionDTO dto);
     TransactionDTO read(Long id);
-    List<Transaction> readAll(Long id);
+    List<TransactionDTO> readAll(Long id);
     void update(TransactionDTO dto);
     void delete(Long id);
 }
