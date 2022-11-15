@@ -20,10 +20,10 @@ public class JacksonUtil {
 
     public static <T> T deserialize(final String source, final TypeReference<T> clazz) {
         try {
-            ObjectMapper mapper = new ObjectMapper();//
-            mapper.registerModule(new JavaTimeModule());//
-            mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);//
-            return mapper.readValue(source, clazz);
+//            ObjectMapper mapper = new ObjectMapper();//
+//            mapper.registerModule(new JavaTimeModule());//
+//            mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);//
+            return objectMapper.readValue(source, clazz);
         } catch (final JsonProcessingException e) {
             e.printStackTrace();
             return null;
