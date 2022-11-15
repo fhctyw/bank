@@ -40,4 +40,5 @@ public class AccountServiceImpl implements AccountService {
     public void delete(final Long id) { ///idClient
         accountRepository.deleteByClientId(id);
     }
+
 }

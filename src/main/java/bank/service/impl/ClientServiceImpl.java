@@ -8,7 +8,7 @@ import bank.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+/*
 @Service
 @RequiredArgsConstructor
 public class ClientServiceImpl implements ClientService {
@@ -40,3 +40,4 @@ public class ClientServiceImpl implements ClientService {
         clientRepository.deleteClient(id);
     }
 }
+*/
