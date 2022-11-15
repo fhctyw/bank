@@ -9,7 +9,7 @@ public class MapperCard {
 
     public CardDTO toDto(final Card card) {
         final CardDTO dto = new CardDTO();
-        //dto.setIdCard(card.getIdCard());
+        dto.setId(card.getId());
         dto.setAmount(card.getAmount());
         dto.setCardNumber(card.getCardNumber());
         dto.setIdClient(card.getIdClient());
@@ -22,7 +22,7 @@ public class MapperCard {
         card.setAmount(dto.getAmount());
         card.setCardNumber(dto.getCardNumber());
         card.setIdClient(dto.getIdClient());
-        card.setIdClient(dto.getIdCard());
+        card.setId(dto.getId());
 
         return card;
     }
