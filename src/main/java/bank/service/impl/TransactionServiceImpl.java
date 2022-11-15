@@ -7,10 +7,16 @@ import bank.entity.Transaction;
 import bank.mapper.MapperTransaction;
 import bank.repository.TransactionRepository;
 import bank.service.TransactionService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
+@RequiredArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
@@ -29,6 +35,12 @@ public class TransactionServiceImpl implements TransactionService {
         final Transaction transaction = transactionRepository.get(id);
         final TransactionDTO dto = mapperTransaction.toDTO(transaction);
         return  dto;
+    }
+
+    @Override
+    public List<TransactionDTO> readAll(Long id) {
+        return  transactionRepository.getTransactions().stream()
+                .map(mapperTransaction::toDTO).collect(Collectors.toList());
     }
 
     @Override

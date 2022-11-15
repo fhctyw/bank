@@ -1,4 +1,4 @@
-package bank.rest;
+package bank.resource;
 
 import bank.dto.ClientDTO;
 import bank.service.ClientService;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/client")
-public class ClientRest {
+public class ClientResource {
 
     @Autowired
     private final ClientService clientService = new ClientServiceImpl();
