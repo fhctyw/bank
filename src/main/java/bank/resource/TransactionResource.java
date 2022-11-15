@@ -1,11 +1,11 @@
 package bank.resource;
-/*
 import bank.dto.TransactionDTO;
 import bank.service.TransactionService;
 import bank.service.impl.TransactionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/transaction")
@@ -34,6 +34,10 @@ public class TransactionResource {
         transactionService.delete(id);
         return ResponseEntity.ok(transactionDTO);
     }
+    @GetMapping("history")
+    public List<TransactionDTO> getHistory(final @RequestBody Long id) {
+        return transactionService.readAll(id);
+    }
+
 
 }
-*/

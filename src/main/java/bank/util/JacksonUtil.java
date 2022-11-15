@@ -3,6 +3,8 @@ package bank.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class JacksonUtil {
     static final ObjectMapper objectMapper = new ObjectMapper();
@@ -27,7 +29,10 @@ public class JacksonUtil {
 
     public static String serialize(final Object object) {
         try {
-            return objectMapper.writeValueAsString(object);
+            ObjectMapper mapper = new ObjectMapper();//
+            mapper.registerModule(new JavaTimeModule());//
+            mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+            return mapper.writeValueAsString(object);
         } catch (final JsonProcessingException e) {
             e.printStackTrace();
             return null;

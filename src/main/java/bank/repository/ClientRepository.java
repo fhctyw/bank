@@ -1,6 +1,5 @@
 package bank.repository;
 
-//import bank.db.FileClient;
 import bank.entity.Client;
 import org.springframework.stereotype.Component;
 
@@ -8,14 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ClientRepository {/*
+public class ClientRepository {
     final  List<Client> clients = new ArrayList<>();
     private Long id = 0L;
 
-    final FileClient fileClient = new FileClient(this);
+    //final FileClient fileClient = new FileClient(this);
 
     public ClientRepository() {
-        fileClient.read();
+        //fileClient.read();
     }
     public List<Client> getClients() {
         return clients;
@@ -35,7 +34,7 @@ public class ClientRepository {/*
         finalClient.setPhoneNumber(client.getPhoneNumber());
         clients.add(finalClient);
 
-        fileClient.write();
+        //fileClient.write();
     }
 
     public Client findById(final Long id) {
@@ -49,12 +48,12 @@ public class ClientRepository {/*
         c.setPhoneNumber(client.getPhoneNumber());
         c.setEmail(client.getEmail());
 
-        fileClient.write();
+        //fileClient.write();
     }
 
     public void deleteClient(final Long id) {
         clients.removeIf(e->e.getId().equals(id));
 
-        fileClient.write();
-    }*/
+        //fileClient.write();
+    }
 }

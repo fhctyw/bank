@@ -1,23 +1,53 @@
 package bank.repository;
 
-//import bank.db.FileAccount;
 import bank.dto.AccountDTO;
 import bank.entity.Account;
-import bank.entity.Consultant;
-import org.springframework.stereotype.Component;
+import bank.util.JacksonUtil;
+import com.fasterxml.jackson.core.type.TypeReference;
+import org.springframework.stereotype.Repository;
 
-import java.math.BigDecimal;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Component
+@Repository
 public class AccountRepository {
-    /*final List<Account> accounts = new ArrayList<>();
+    private final String source = "accounts.txt";
+     List<Account> accounts = new ArrayList<>();
 
-    final FileAccount fileAccount = new FileAccount(this);
-    public AccountRepository() {
-        add(new Account(null, 0L, 0L, new ArrayList<>(), new BigDecimal(0)));
+
+    @PostConstruct
+    public void postConstructor() {
+        final Path file = Paths.get(source);
+        try {
+            accounts = JacksonUtil.deserialize(Files.readString(file, StandardCharsets.UTF_16), new TypeReference<List<Account>>() {
+            });
+
+            if (accounts == null) {
+                accounts = new ArrayList<>();
+                return;
+            }
+
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @PreDestroy
+    public void preDestroy() {
+        final Path file = Paths.get(source);
+
+        try {
+            Files.writeString(file, JacksonUtil.serialize(accounts), StandardCharsets.UTF_16);
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void add(final Account account) {
@@ -28,6 +58,7 @@ public class AccountRepository {
         finalAccount.setAmount(account.getAmount());
         finalAccount.setIdCurrency(account.getIdCurrency());
         accounts.add(finalAccount);
+
     }
 
     public Account findById(final Long id) {
@@ -44,14 +75,14 @@ public class AccountRepository {
        update.setIdCurrency(dto.getIdCurrency());
        update.setIdCards(dto.getIdCards());
 
-       fileAccount.write();
     }
-    public void delete(final Long id) {
+    public void deleteByClientId(final Long id) {
         accounts.removeIf(e->e.getIdClient().equals(id));
-
-        fileAccount.write();
+    }
+    public void deleteUUID(final Long id) {
+        accounts.removeIf(e->e.getId().equals(id));
     }
     public List<Account> getAccounts() {
         return accounts;
-    }*/
+    }
 }
