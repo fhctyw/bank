@@ -5,10 +5,12 @@ import bank.entity.Client;
 import bank.mapper.MapperClient;
 import bank.repository.ClientRepository;
 import bank.service.ClientService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ClientServiceImpl implements ClientService {
 
     @Autowired

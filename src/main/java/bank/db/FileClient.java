@@ -4,9 +4,6 @@ import bank.entity.Client;
 import bank.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.io.*;
 
 public class FileClient implements BankDB {

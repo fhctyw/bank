@@ -2,12 +2,12 @@ package bank.repository;
 
 import bank.db.FileClient;
 import bank.entity.Client;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Repository
 public class ClientRepository {
     final  List<Client> clients = new ArrayList<>();
     private Long id = 0L;
@@ -39,7 +39,10 @@ public class ClientRepository {
     }
 
     public Client findById(final Long id) {
-        return clients.stream().filter(e -> e.getId().equals(id)).findFirst().orElseThrow();
+        return clients.stream()
+                .filter(e -> e.getId().equals(id))
+                .findFirst()
+                .orElseThrow();
     }
 
     public void setClient(final Long id, final Client client) {
