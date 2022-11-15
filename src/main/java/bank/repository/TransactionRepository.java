@@ -1,7 +1,7 @@
 package bank.repository;
 
-import bank.db.FileAccount;
-import bank.db.FileTransaction;
+//import bank.db.FileAccount;
+//import bank.db.FileTransaction;
 import bank.dto.AccountDTO;
 import bank.dto.TransactionDTO;
 import bank.entity.Account;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class TransactionRepository {
+public class TransactionRepository {/*
     final List<Transaction> transactions = new ArrayList<>();
 
     final FileTransaction fileTransaction = new FileTransaction(this);
@@ -65,5 +65,5 @@ public class TransactionRepository {
 
        fileTransaction.write();
     }
-
+*/
 }

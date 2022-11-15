@@ -1,6 +1,6 @@
 package bank.repository;
 
-import bank.db.FileAccount;
+//import bank.db.FileAccount;
 import bank.dto.AccountDTO;
 import bank.entity.Account;
 import bank.entity.Consultant;
@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Component
 public class AccountRepository {
-    final List<Account> accounts = new ArrayList<>();
+    /*final List<Account> accounts = new ArrayList<>();
 
     final FileAccount fileAccount = new FileAccount(this);
     public AccountRepository() {
@@ -53,5 +53,5 @@ public class AccountRepository {
     }
     public List<Account> getAccounts() {
         return accounts;
-    }
+    }*/
 }

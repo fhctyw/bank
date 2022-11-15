@@ -1,4 +1,4 @@
-package bank.util.impl;
+package bank.service.impl;
 
 import bank.dto.ClientDTO;
 import bank.entity.Client;
@@ -7,7 +7,7 @@ import bank.repository.ClientRepository;
 import bank.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+/*
 @Service
 public class ClientServiceImpl implements ClientService {
 
@@ -38,3 +38,4 @@ public class ClientServiceImpl implements ClientService {
         clientRepository.deleteClient(id);
     }
 }
+*/

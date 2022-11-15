@@ -1,6 +1,6 @@
 package bank.repository;
 
-import bank.db.FileClient;
+//import bank.db.FileClient;
 import bank.entity.Client;
 import org.springframework.stereotype.Component;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ClientRepository {
+public class ClientRepository {/*
     final  List<Client> clients = new ArrayList<>();
     private Long id = 0L;
 
@@ -56,5 +56,5 @@ public class ClientRepository {
         clients.removeIf(e->e.getId().equals(id));
 
         fileClient.write();
-    }
+    }*/
 }

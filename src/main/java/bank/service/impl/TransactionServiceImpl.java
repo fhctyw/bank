@@ -1,4 +1,4 @@
-package bank.util.impl;
+package bank.service.impl;
 
 import bank.dto.TransactionDTO;
 import bank.entity.Transaction;
@@ -7,7 +7,7 @@ import bank.repository.TransactionRepository;
 import bank.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+/*
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
@@ -39,3 +39,4 @@ public class TransactionServiceImpl implements TransactionService {
         transactionRepository.delete(id);
     }
 }
+*/

@@ -1,4 +1,4 @@
-package bank.util.impl;
+package bank.service.impl;
 
 import bank.dto.AccountDTO;
 import bank.entity.Account;
@@ -38,4 +38,5 @@ public class AccountServiceImpl implements AccountService {
     public void delete(final Long id) { ///idClient
         accountRepository.delete(id);
     }
+
 }
