@@ -8,7 +8,9 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class JacksonUtil {
     static final ObjectMapper objectMapper = new ObjectMapper();
-
+    static {
+        objectMapper.registerModule(new JavaTimeModule());
+    }
     public static <T> T deserialize(final String source, final Class<T> clazz) {
         try {
             return objectMapper.readValue(source, clazz);
@@ -29,10 +31,7 @@ public class JacksonUtil {
 
     public static String serialize(final Object object) {
         try {
-            ObjectMapper mapper = new ObjectMapper();//
-            mapper.registerModule(new JavaTimeModule());//
-            mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-            return mapper.writeValueAsString(object);
+            return objectMapper.writeValueAsString(object);
         } catch (final JsonProcessingException e) {
             e.printStackTrace();
             return null;

@@ -30,7 +30,7 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public void update(final CardDTO dto) {
-        cardRepository.setCard(dto.getIdCard(),mapperCard.toEntity(dto));
+        cardRepository.setCard(dto.getId(),mapperCard.toEntity(dto));
     }
 
     @Override
