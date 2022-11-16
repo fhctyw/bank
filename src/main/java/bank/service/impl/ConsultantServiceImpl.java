@@ -39,8 +39,10 @@ public class ConsultantServiceImpl implements ConsultantService {
     }
 
     @Override
-    public void delete(final Long id) {
+    public ConsultantDTO delete(final Long id) {
+        final Consultant consultant = consultantRepository.findById(id);
         consultantRepository.delete(id);
+        return mapperConsultant.toDto(consultant);
     }
 
     @Override

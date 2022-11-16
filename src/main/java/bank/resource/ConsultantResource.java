@@ -39,8 +39,6 @@ public class ConsultantResource {
 
     @DeleteMapping
     public ResponseEntity<ConsultantDTO> delete(final @RequestBody Long id) {
-        final ConsultantDTO consultantDTO = consultantService.read(id);
-        consultantService.delete(id);
-        return ResponseEntity.ok(consultantDTO);
+        return ResponseEntity.ok(consultantService.delete(id));
     }
 }

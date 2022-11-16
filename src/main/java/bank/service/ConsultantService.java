@@ -8,6 +8,6 @@ public interface ConsultantService {
     ConsultantDTO create(ConsultantDTO dto);
     ConsultantDTO read(Long id);
     ConsultantDTO update(ConsultantDTO dto);
-    void delete(Long id);
+    ConsultantDTO delete(Long id);
     List<ConsultantDTO> getAll();
 }

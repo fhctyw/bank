@@ -17,6 +17,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Repository
 public class ConsultantRepository {
@@ -30,6 +31,10 @@ public class ConsultantRepository {
 
     public List<Consultant> getConsultants() {
         return consultants;
+    }
+
+    public void setConsultants(final List<Consultant> consultants) {
+        this.consultants = consultants;
     }
 
     @PostConstruct
@@ -73,7 +78,7 @@ public class ConsultantRepository {
 
     public Consultant findById(final Long id) {
         return consultants.stream().filter(e -> e.getId().equals(id)).findFirst()
-                .orElseThrow(() -> new ServiceException("no such id"));
+                .orElseThrow(() -> new ServiceException("No such id when finding"));
     }
 
     public void set(final Long id, final Consultant consultant) {
@@ -84,9 +89,6 @@ public class ConsultantRepository {
     }
 
     public void delete(final Long id) {
-        consultants.removeIf(e -> e.getId().equals(id));
-
+        setConsultants(consultants.stream().filter(e -> !e.getId().equals(id)).collect(Collectors.toList()));
     }
-
-
 }
