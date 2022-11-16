@@ -5,10 +5,12 @@ import bank.entity.Client;
 import bank.mapper.MapperClient;
 import bank.repository.ClientRepository;
 import bank.service.ClientService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-/*
+
 @Service
+@RequiredArgsConstructor
 public class ClientServiceImpl implements ClientService {
 
     @Autowired
@@ -25,7 +27,8 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientDTO read(final Long id) {
-        return mapperClient.toDTO(clientRepository.findById(id));
+        final ClientDTO clientDTO = mapperClient.toDTO(clientRepository.findById(id));
+        return clientDTO;
     }
 
     @Override
@@ -38,4 +41,3 @@ public class ClientServiceImpl implements ClientService {
         clientRepository.deleteClient(id);
     }
 }
-*/

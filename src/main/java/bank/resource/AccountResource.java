@@ -1,5 +1,5 @@
 package bank.resource;
-/*
+
 import bank.dto.AccountDTO;
 import bank.service.AccountService;
 import bank.service.impl.AccountServiceImpl;
@@ -37,4 +37,3 @@ public class AccountResource {
     }
 
 }
-*/
