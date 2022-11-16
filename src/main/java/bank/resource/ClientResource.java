@@ -1,5 +1,5 @@
 package bank.resource;
-/*
+
 import bank.dto.ClientDTO;
 import bank.service.ClientService;
 import bank.service.impl.ClientServiceImpl;
@@ -38,4 +38,3 @@ public class ClientResource {
         return ResponseEntity.ok(clientDTO);
     }
 }
-*/

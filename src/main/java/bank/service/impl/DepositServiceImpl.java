@@ -27,7 +27,9 @@ public class DepositServiceImpl implements DepositService {
 
     @Override
     public DepositDTO read(final Long id) {
-        return mapperDeposit.toDTO(depositRepository.findById(id));
+        final Deposit deposit = depositRepository.get(id);
+        final DepositDTO dto = mapperDeposit.toDTO(deposit);
+        return dto;
     }
 
     @Override
