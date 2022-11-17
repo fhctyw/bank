@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class DepositServiceImpl implements DepositService {
@@ -41,4 +44,9 @@ public class DepositServiceImpl implements DepositService {
     public void delete(final Long id) {
         depositRepository.deleteDeposit(id);
     }
+    @Override
+    public List<DepositDTO> getAll() {
+        return depositRepository.getDeposits().stream().map(mapperDeposit::toDTO).collect(Collectors.toList());
+    }
+
 }

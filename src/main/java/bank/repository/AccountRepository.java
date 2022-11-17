@@ -2,6 +2,7 @@ package bank.repository;
 
 import bank.dto.AccountDTO;
 import bank.entity.Account;
+import bank.exception.ServiceException;
 import bank.util.JacksonUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.stereotype.Repository;
@@ -36,7 +37,7 @@ public class AccountRepository {
             }
 
         } catch (final IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("file " + source + " doesn't exist");
         }
     }
     @PreDestroy
@@ -62,7 +63,8 @@ public class AccountRepository {
     }
 
     public Account findById(final Long id) {
-        return accounts.stream().filter(e->e.getIdClient().equals(id)).findFirst().orElseThrow();
+        return accounts.stream().filter(e->e.getIdClient().equals(id)).findFirst()
+                .orElseThrow(() -> new ServiceException("No such id when finding"));
     }
     public Account get(final Long id) {
         return findById(id);

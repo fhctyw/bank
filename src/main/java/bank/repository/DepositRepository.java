@@ -2,6 +2,7 @@ package bank.repository;
 
 import bank.dto.DepositDTO;
 import bank.entity.Deposit;
+import bank.exception.ServiceException;
 import bank.util.JacksonUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -21,6 +22,8 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Repository
 public class DepositRepository {
 
@@ -33,6 +36,10 @@ public class DepositRepository {
     private LocalDate ignoreUntil;
     public List<Deposit> getDeposits() {
         return deposits;
+    }
+
+    public void setDeposits(List<Deposit> deposits) {
+        this.deposits = deposits;
     }
 
     public Long getId() {
@@ -104,7 +111,7 @@ public class DepositRepository {
         return deposits.stream()
                 .filter(e -> e.getDepositId().equals(id))
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(() -> new ServiceException("No such id when finding"));
     }
 
     public Deposit get(final Long id) {
@@ -123,7 +130,7 @@ public class DepositRepository {
         c.setPercentage(deposit.getPercentage());
     }
 
-    public void deleteDeposit(final Long id) {
-        deposits.removeIf(e->e.getDepositId().equals(id));
+    public void deleteDeposit(final Long id){
+        setDeposits(deposits.stream().filter(e -> !e.getDepositId().equals(id)).collect(Collectors.toList()));
     }
 }

@@ -23,6 +23,15 @@ import java.util.List;
 public class CardRepository {
     private final String source = "cards.txt";
     private List<Card> cards = new ArrayList<>();
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
+
     private Long id;
     private Long cardNumber = 0L;
 

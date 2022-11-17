@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/account")
 public class AccountResource {
@@ -36,4 +38,8 @@ public class AccountResource {
         return ResponseEntity.ok(accountDTO);
     }
 
+    @GetMapping(value = "/all")
+    public List<AccountDTO> getAll() {
+        return accountService.getAll();
+    }
 }

@@ -1,5 +1,6 @@
 package bank.resource;
 
+import bank.dto.ConsultantDTO;
 import bank.dto.DepositDTO;
 import bank.dto.TransactionDTO;
 import bank.service.DepositService;
@@ -38,5 +39,10 @@ public class DepositResource {
         final DepositDTO depositDTO = get(id);
         depositService.delete(id);
         return ResponseEntity.ok(depositDTO);
+    }
+
+    @GetMapping(value = "/all")
+    public List<DepositDTO> getAll() {
+        return depositService.getAll();
     }
 }

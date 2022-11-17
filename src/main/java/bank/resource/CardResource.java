@@ -1,12 +1,13 @@
 package bank.resource;
 
 import bank.dto.CardDTO;
-import bank.entity.Card;
 import bank.service.CardService;
 import bank.service.impl.CardServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/card")
@@ -37,5 +38,9 @@ public class CardResource {
         final CardDTO cardDTO = get(id);
         cardService.delete(id);
         return ResponseEntity.ok(cardDTO);
+    }
+    @GetMapping(value = "/all")
+    public List<CardDTO> getAll() {
+        return cardService.getAll();
     }
 }

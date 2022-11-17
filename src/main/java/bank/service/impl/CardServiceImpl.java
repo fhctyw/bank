@@ -8,6 +8,9 @@ import bank.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class CardServiceImpl implements CardService {
 
@@ -38,5 +41,8 @@ public class CardServiceImpl implements CardService {
         cardRepository.deleteCard(id);
     }
 
-
+    @Override
+    public List<CardDTO> getAll() {
+        return cardRepository.getCards().stream().map(mapperCard::toDto).collect(Collectors.toList());
+    }
 }

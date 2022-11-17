@@ -40,5 +40,8 @@ public class TransactionResource {
         return transactionService.readAll();
     }
 
-
+    @GetMapping(value = "/all")
+    public List<TransactionDTO> getAll() {
+        return transactionService.getAll();
+    }
 }

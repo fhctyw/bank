@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class ClientServiceImpl implements ClientService {
@@ -39,5 +42,10 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void delete(final Long id) {
         clientRepository.deleteClient(id);
+    }
+
+    @Override
+    public List<ClientDTO> getAll() {
+        return clientRepository.getClients().stream().map(mapperClient::toDTO).collect(Collectors.toList());
     }
 }

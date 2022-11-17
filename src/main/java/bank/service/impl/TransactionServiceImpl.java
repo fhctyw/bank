@@ -52,4 +52,8 @@ public class TransactionServiceImpl implements TransactionService {
         transactionRepository.delete(id);
         return mapperTransaction.toDto(transaction);
     }
+    @Override
+    public List<TransactionDTO> getAll() {
+        return transactionRepository.getTransactions().stream().map(mapperTransaction::toDto).collect(Collectors.toList());
+    }
 }
