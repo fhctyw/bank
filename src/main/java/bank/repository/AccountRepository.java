@@ -24,7 +24,7 @@ public class AccountRepository {
     private final String source = "accounts.txt";
      List<Account> accounts = new ArrayList<>();
 
-    public void setAccounts(List<Account> accounts) {
+    public void setAccounts(final List<Account> accounts) {
         this.accounts = accounts;
     }
 
@@ -75,7 +75,7 @@ public class AccountRepository {
     }
     public void update(final Long id,final AccountDTO dto) {
        final Account update = findById(id);
-       update.setId(dto.getId());//??????
+       update.setId(dto.getId());
        update.setIdClient(dto.getIdClient());
        update.setAmount(dto.getAmount());
        update.setIdCurrency(dto.getIdCurrency());

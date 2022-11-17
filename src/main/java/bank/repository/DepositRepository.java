@@ -5,10 +5,6 @@ import bank.entity.Deposit;
 import bank.exception.ServiceException;
 import bank.util.JacksonUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -18,10 +14,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Repository
@@ -31,9 +26,6 @@ public class DepositRepository {
     private List<Deposit> deposits = new ArrayList<>();
     private Long id = 0L;
 
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDate ignoreUntil;
     public List<Deposit> getDeposits() {
         return deposits;
     }
@@ -46,7 +38,7 @@ public class DepositRepository {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -54,7 +46,7 @@ public class DepositRepository {
     public void postConstructor() {
         final Path file = Paths.get(source);
         try {
-            deposits = JacksonUtil.deserialize(Files.readString(file, StandardCharsets.UTF_16), new TypeReference<List<Deposit>>() {
+            deposits = JacksonUtil.deserialize(Files.readString(file, StandardCharsets.UTF_16), new TypeReference<>() {
             });
 
             if (deposits == null) {
@@ -76,7 +68,7 @@ public class DepositRepository {
         final Path file = Paths.get(source);
 
         try {
-            Files.writeString(file, JacksonUtil.serialize(deposits), StandardCharsets.UTF_16);
+            Files.writeString(file, Objects.requireNonNull(JacksonUtil.serialize(deposits)), StandardCharsets.UTF_16);
         } catch (final IOException e) {
             e.printStackTrace();
         }

@@ -1,8 +1,6 @@
 package bank.resource;
 
-import bank.dto.ConsultantDTO;
 import bank.dto.DepositDTO;
-import bank.dto.TransactionDTO;
 import bank.service.DepositService;
 import bank.service.impl.DepositServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

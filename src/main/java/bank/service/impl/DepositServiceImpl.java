@@ -37,7 +37,7 @@ public class DepositServiceImpl implements DepositService {
 
     @Override
     public void update(final DepositDTO dto) {
-        depositRepository.setDeposit(dto.getDepositId(), mapperDeposit.toEntity(dto));
+        depositRepository.setDeposit(dto.getId(), mapperDeposit.toEntity(dto));
     }
 
     @Override

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class Transaction {
     private Long id;
     private LocalDateTime time;
-    private BigDecimal amountOfTransaction;
+    private BigDecimal amount;
     private Long idReceiver;
     private Long idSender;
     private String message;

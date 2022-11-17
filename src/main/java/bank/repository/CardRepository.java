@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -73,12 +74,12 @@ public class CardRepository {
     }
 
     @PreDestroy
-    public void preDestroy(){
+    public void preDestroy() {
         final Path file = Paths.get(source);
 
-        try{
-            Files.writeString(file,JacksonUtil.serialize(cards),StandardCharsets.UTF_16);
-        }catch (final IOException e){
+        try {
+            Files.writeString(file, Objects.requireNonNull(JacksonUtil.serialize(cards)), StandardCharsets.UTF_16);
+        } catch (final IOException e) {
             e.printStackTrace();
         }
     }
@@ -91,6 +92,11 @@ public class CardRepository {
         cardFinal.setIdClient(card.getIdClient());
         cardFinal.setAmount(card.getAmount());
         cards.add(cardFinal);
+    }
+
+    public Card findByNumber(final Long number) {
+        return cards.stream().filter(e -> e.getCardNumber().equals(number)).findFirst()
+                .orElseThrow(() -> new ServiceException("No such card number when finding"));
     }
 
     public Card findById(final Long id) {

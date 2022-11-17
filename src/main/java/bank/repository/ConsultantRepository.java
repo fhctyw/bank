@@ -72,6 +72,8 @@ public class ConsultantRepository {
         final Consultant finalConsultant = new Consultant();
         finalConsultant.setId(++id);
         finalConsultant.setFullName(consultant.getFullName());
+        finalConsultant.setEmail(consultant.getEmail());
+        finalConsultant.setPhoneNumber(consultant.getPhoneNumber());
         consultants.add(finalConsultant);
     }
 
@@ -84,7 +86,8 @@ public class ConsultantRepository {
         final Consultant c = findById(id);
         c.setId(consultant.getId());
         c.setFullName(consultant.getFullName());
-
+        c.setPhoneNumber(consultant.getPhoneNumber());
+        c.setEmail(consultant.getEmail());
     }
 
     public void delete(final Long id) {

@@ -33,7 +33,7 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public void update(final CardDTO dto) {
-        cardRepository.setCard(dto.getId(),mapperCard.toEntity(dto));
+        cardRepository.setCard(dto.getId(), mapperCard.toEntity(dto));
     }
 
     @Override
@@ -44,5 +44,10 @@ public class CardServiceImpl implements CardService {
     @Override
     public List<CardDTO> getAll() {
         return cardRepository.getCards().stream().map(mapperCard::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public CardDTO getByNumber(final Long number) {
+        return mapperCard.toDto(cardRepository.findByNumber(number));
     }
 }
