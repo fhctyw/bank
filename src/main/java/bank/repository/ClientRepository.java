@@ -51,7 +51,7 @@ public class ClientRepository {
             id = maxId;
 
         } catch (final IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("file " + source + " doesn't exist");
         }
     }
 
