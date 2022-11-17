@@ -62,7 +62,7 @@ public class DepositRepository {
                 return;
             }
 
-            final long maxId = deposits.stream().mapToLong(Deposit::getDepositId).max().orElse(1);
+            final long maxId = deposits.stream().mapToLong(Deposit::getId).max().orElse(1);
 
             id = maxId;
 
@@ -84,9 +84,8 @@ public class DepositRepository {
 
     public void add(final Deposit deposit) {
         final Deposit finalDeposit = new Deposit();
-        finalDeposit.setClient(deposit.getClient());
         finalDeposit.setAmount(deposit.getAmount());
-        finalDeposit.setDepositId(++id);
+        finalDeposit.setId(++id);
         finalDeposit.setCardId(deposit.getCardId());
         finalDeposit.setConsultantId(deposit.getConsultantId());
         finalDeposit.setPutTime(deposit.getPutTime());
@@ -97,9 +96,8 @@ public class DepositRepository {
 
     public void update(final Long id, final DepositDTO dto) {
         final Deposit update = findById(id);
-        update.setClient(dto.getClient());
         update.setAmount(dto.getAmount());
-        update.setDepositId(dto.getDepositId());
+        update.setId(dto.getId());
         update.setCardId(dto.getCardId());
         update.setConsultantId(dto.getConsultantId());
         update.setPutTime(dto.getPutTime());
@@ -109,7 +107,7 @@ public class DepositRepository {
 
     public Deposit findById(final Long id) {
         return deposits.stream()
-                .filter(e -> e.getDepositId().equals(id))
+                .filter(e -> e.getId().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new ServiceException("No such id when finding"));
     }
@@ -120,9 +118,7 @@ public class DepositRepository {
 
     public void setDeposit(final Long id, final Deposit deposit) {
         final Deposit c = findById(id);
-        c.setClient(deposit.getClient());
-        c.setClient(deposit.getClient());
-        c.setDepositId(deposit.getDepositId());
+        c.setId(deposit.getId());
         c.setCardId(deposit.getCardId());
         c.setConsultantId(deposit.getConsultantId());
         c.setPutTime(deposit.getPutTime());
@@ -131,6 +127,6 @@ public class DepositRepository {
     }
 
     public void deleteDeposit(final Long id){
-        setDeposits(deposits.stream().filter(e -> !e.getDepositId().equals(id)).collect(Collectors.toList()));
+        setDeposits(deposits.stream().filter(e -> !e.getId().equals(id)).collect(Collectors.toList()));
     }
 }

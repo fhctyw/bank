@@ -17,12 +17,16 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Repository
 public class AccountRepository {
     private final String source = "accounts.txt";
      List<Account> accounts = new ArrayList<>();
 
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
 
     @PostConstruct
     public void postConstructor() {
@@ -79,10 +83,10 @@ public class AccountRepository {
 
     }
     public void deleteByClientId(final Long id) {
-        accounts.removeIf(e->e.getIdClient().equals(id));
+        setAccounts(accounts.stream().filter(e -> !e.getIdClient().equals(id)).collect(Collectors.toList()));
     }
     public void deleteUUID(final Long id) {
-        accounts.removeIf(e->e.getId().equals(id));
+        setAccounts(accounts.stream().filter(e -> !e.getId().equals(id)).collect(Collectors.toList()));
     }
     public List<Account> getAccounts() {
         return accounts;
