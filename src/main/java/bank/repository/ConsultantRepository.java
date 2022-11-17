@@ -11,7 +11,6 @@ import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -53,8 +52,8 @@ public class ConsultantRepository {
 
             id = maxId + 1;
 
-        } catch (final IOException | InvalidPathException ex) {
-            System.out.println("file " + source + "doesn't exist");
+        } catch (final IOException ex) {
+            System.out.println("file " + source + " doesn't exist");
         }
     }
 
