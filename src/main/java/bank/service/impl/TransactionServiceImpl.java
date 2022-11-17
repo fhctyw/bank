@@ -1,8 +1,6 @@
 package bank.service.impl;
 
-import bank.dto.AccountDTO;
 import bank.dto.TransactionDTO;
-import bank.entity.Account;
 import bank.entity.Transaction;
 import bank.mapper.MapperTransaction;
 import bank.repository.TransactionRepository;
@@ -11,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,32 +22,34 @@ public class TransactionServiceImpl implements TransactionService {
     final TransactionRepository transactionRepository = new TransactionRepository();
 
     @Override
-    public void create(TransactionDTO dto) {
+    public TransactionDTO create(final TransactionDTO dto) {
         final Transaction transaction = mapperTransaction.toEntity(dto);
         transactionRepository.add(transaction);
+        final Transaction transactionInRepos = transactionRepository.findById(transactionRepository.getId());
+        return mapperTransaction.toDto(transactionInRepos);
     }
 
     @Override
-    public TransactionDTO read(Long id) {
-        final Transaction transaction = transactionRepository.get(id);
-        final TransactionDTO dto = mapperTransaction.toDTO(transaction);
-        return  dto;
+    public TransactionDTO read(final Long id) {
+        return mapperTransaction.toDto(transactionRepository.findById(id));
     }
 
     @Override
-    public List<TransactionDTO> readAll(Long id) {
-        return  transactionRepository.getTransactions().stream()
-                .map(mapperTransaction::toDTO).collect(Collectors.toList());
+    public List<TransactionDTO> readAll() {
+        return transactionRepository.getTransactions().stream()
+                .map(mapperTransaction::toDto).collect(Collectors.toList());
     }
 
     @Override
-    public void update(TransactionDTO dto) {
-
-        transactionRepository.update(dto.getId(),dto);
+    public TransactionDTO update(final TransactionDTO dto) {
+        transactionRepository.set(dto.getId(), mapperTransaction.toEntity(dto));
+        return read(dto.getId());
     }
 
     @Override
-    public void delete(Long id) {
+    public TransactionDTO delete(final Long id) {
+        final Transaction transaction = transactionRepository.findById(id);
         transactionRepository.delete(id);
+        return mapperTransaction.toDto(transaction);
     }
 }

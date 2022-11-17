@@ -13,16 +13,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransactionDTO {
-        @NotNull
-        private Long id;
-        @NotNull
-        private LocalDateTime time;
-        @NotNull
-        private BigDecimal amount_of_transaction;
-        @NotNull
-        private Long idReceiver;
-        @NotNull
-        private Long idSender;
-        @NotBlank
-        private String message;
+    private Long id;
+    @NotNull
+    private LocalDateTime time;
+    @NotNull
+    private BigDecimal amountOfTransaction;
+    @NotNull
+    private Long idReceiver;
+    @NotNull
+    private Long idSender;
+    @NotBlank
+    private String message;
 }

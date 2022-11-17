@@ -6,12 +6,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MapperTransaction {
-    public  TransactionDTO toDTO(final Transaction transaction) {
+    public  TransactionDTO toDto(final Transaction transaction) {
         final TransactionDTO dto = new TransactionDTO();
         dto.setId(transaction.getId());
         dto.setTime(transaction.getTime());
         dto.setMessage(transaction.getMessage());
-        dto.setAmount_of_transaction(transaction.getAmount_of_transaction());
+        dto.setAmountOfTransaction(transaction.getAmountOfTransaction());
         dto.setIdSender(transaction.getIdSender());
         dto.setIdReceiver(transaction.getIdReceiver());
         return dto;
@@ -21,7 +21,7 @@ public class MapperTransaction {
         transaction.setId(dto.getId());
         transaction.setTime(dto.getTime());
         transaction.setMessage(dto.getMessage());
-        transaction.setAmount_of_transaction(dto.getAmount_of_transaction());
+        transaction.setAmountOfTransaction(dto.getAmountOfTransaction());
         transaction.setIdSender(dto.getIdSender());
         transaction.setIdReceiver(dto.getIdReceiver());
         return transaction;
