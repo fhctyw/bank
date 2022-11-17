@@ -1,6 +1,7 @@
 package bank.repository;
 
 import bank.entity.Consultant;
+import bank.exception.ServiceException;
 import bank.util.JacksonUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.stereotype.Repository;
@@ -14,18 +15,32 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Repository
 public class ConsultantRepository {
     private final String source = "consultants.txt";
     private List<Consultant> consultants = new ArrayList<>();
-    private Long id;
+    private Long id = 0L;
+
+    public Long getId() {
+        return id;
+    }
+
+    public List<Consultant> getConsultants() {
+        return consultants;
+    }
+
+    public void setConsultants(final List<Consultant> consultants) {
+        this.consultants = consultants;
+    }
 
     @PostConstruct
     public void postConstructor() {
         final Path file = Paths.get(source);
         try {
-            consultants = JacksonUtil.deserialize(Files.readString(file, StandardCharsets.UTF_16), new TypeReference<List<Consultant>>() {
+            consultants = JacksonUtil.deserialize(Files.readString(file, StandardCharsets.UTF_16), new TypeReference<>() {
             });
 
             if (consultants == null) {
@@ -37,8 +52,8 @@ public class ConsultantRepository {
 
             id = maxId + 1;
 
-        } catch (final IOException e) {
-            throw new RuntimeException(e);
+        } catch (final IOException ex) {
+            System.out.println("file " + source + " doesn't exist");
         }
     }
 
@@ -47,7 +62,7 @@ public class ConsultantRepository {
         final Path file = Paths.get(source);
 
         try {
-            Files.writeString(file, JacksonUtil.serialize(consultants), StandardCharsets.UTF_16);
+            Files.writeString(file, Objects.requireNonNull(JacksonUtil.serialize(consultants)), StandardCharsets.UTF_16);
         } catch (final IOException e) {
             e.printStackTrace();
         }
@@ -61,20 +76,18 @@ public class ConsultantRepository {
     }
 
     public Consultant findById(final Long id) {
-        return consultants.stream().filter(e -> e.getId().equals(id)).findFirst().orElseThrow();
+        return consultants.stream().filter(e -> e.getId().equals(id)).findFirst()
+                .orElseThrow(() -> new ServiceException("No such id when finding"));
     }
 
-    public void setConsultant(final Long id, final Consultant consultant) {
+    public void set(final Long id, final Consultant consultant) {
         final Consultant c = findById(id);
         c.setId(consultant.getId());
         c.setFullName(consultant.getFullName());
 
     }
 
-    public void deleteConsultant(final Long id) {
-        consultants.removeIf(e -> e.getId().equals(id));
-
+    public void delete(final Long id) {
+        setConsultants(consultants.stream().filter(e -> !e.getId().equals(id)).collect(Collectors.toList()));
     }
-
-
 }

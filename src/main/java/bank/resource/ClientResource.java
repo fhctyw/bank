@@ -1,5 +1,5 @@
 package bank.resource;
-/*
+
 import bank.dto.ClientDTO;
 import bank.service.ClientService;
 import bank.service.impl.ClientServiceImpl;
@@ -15,15 +15,15 @@ public class ClientResource {
     private final ClientService clientService = new ClientServiceImpl();
 
     @PostMapping
-    public ResponseEntity<ClientDTO> create(final @RequestBody ClientDTO consultantDto) {
-        clientService.create(consultantDto);
-        return ResponseEntity.ok(consultantDto);
+    public ResponseEntity<ClientDTO> create(final @RequestBody ClientDTO clientDTO) {
+        clientService.create(clientDTO);
+        return ResponseEntity.ok(clientDTO);
     }
 
     @PutMapping
-    public ResponseEntity<ClientDTO> put(final @RequestBody ClientDTO consultantDto) {
-        clientService.update(consultantDto);
-        return ResponseEntity.ok(consultantDto);
+    public ResponseEntity<ClientDTO> put(final @RequestBody ClientDTO clientDTO) {
+        clientService.update(clientDTO);
+        return ResponseEntity.ok(clientDTO);
     }
 
     @GetMapping
@@ -33,9 +33,8 @@ public class ClientResource {
 
     @DeleteMapping
     public ResponseEntity<ClientDTO> delete(final @RequestBody Long id) {
-        final ClientDTO consultantDTO = get(id);
+        final ClientDTO clientDTO = get(id);
         clientService.delete(id);
-        return ResponseEntity.ok(consultantDTO);
+        return ResponseEntity.ok(clientDTO);
     }
 }
-*/

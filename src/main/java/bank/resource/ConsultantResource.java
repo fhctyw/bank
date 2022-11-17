@@ -4,26 +4,25 @@ import bank.dto.ConsultantDTO;
 import bank.service.ConsultantService;
 import bank.service.impl.ConsultantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("api/consultant")
+@RequestMapping(value = "api/consultant", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ConsultantResource {
     @Autowired
     private final ConsultantService consultantService = new ConsultantServiceImpl();
 
     @PostMapping
-    public ResponseEntity<ConsultantDTO> create(final @RequestBody @Validated ConsultantDTO consultantDto) {
-        consultantService.create(consultantDto);
-        return ResponseEntity.ok(consultantDto);
+    public ConsultantDTO create(final @RequestBody ConsultantDTO consultantDto) {
+        return consultantService.create(consultantDto);
     }
 
     @PutMapping
-    public ResponseEntity<ConsultantDTO> put(final @RequestBody ConsultantDTO consultantDto) {
-        consultantService.update(consultantDto);
-        return ResponseEntity.ok(consultantDto);
+    public ConsultantDTO put(final @RequestBody ConsultantDTO consultantDto) {
+        return consultantService.update(consultantDto);
     }
 
     @GetMapping
@@ -32,9 +31,12 @@ public class ConsultantResource {
     }
 
     @DeleteMapping
-    public ResponseEntity<ConsultantDTO> delete(final @RequestBody Long id) {
-        final ConsultantDTO consultantDTO = get(id);
-        consultantService.delete(id);
-        return ResponseEntity.ok(consultantDTO);
+    public ConsultantDTO delete(final @RequestBody Long id) {
+        return consultantService.delete(id);
+    }
+
+    @GetMapping(value = "/all")
+    public List<ConsultantDTO> getAll() {
+        return consultantService.getAll();
     }
 }

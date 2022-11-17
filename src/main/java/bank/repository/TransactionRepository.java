@@ -3,18 +3,9 @@ package bank.repository;
 
 import bank.dto.TransactionDTO;
 import bank.entity.Transaction;
+import bank.exception.ServiceException;
 import bank.util.JacksonUtil;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -27,21 +18,32 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Repository
 public class TransactionRepository {
     private final String source = "transactions.txt";
-   private List<Transaction> transactions = new ArrayList<>();
-    private Long id;
+    private List<Transaction> transactions = new ArrayList<>();
+    private Long id = 0L;
 
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime ignoreUntil;
-   @PostConstruct
-   public void postConstructor() {
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(final List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    @PostConstruct
+    public void postConstructor() {
         final Path file = Paths.get(source);
         try {
-            transactions = JacksonUtil.deserialize(Files.readString(file, StandardCharsets.UTF_16), new TypeReference<List<Transaction>>() {
+            transactions = JacksonUtil.deserialize(Files.readString(file, StandardCharsets.UTF_16), new TypeReference<>() {
             });
 
             if (transactions == null) {
@@ -54,15 +56,16 @@ public class TransactionRepository {
             id = maxId + 1;
 
         } catch (final IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("file " + source + " doesn't exist");
         }
     }
+
     @PreDestroy
     public void preDestroy() {
         final Path file = Paths.get(source);
 
         try {
-            Files.writeString(file, JacksonUtil.serialize(transactions), StandardCharsets.UTF_16);
+            Files.writeString(file, Objects.requireNonNull(JacksonUtil.serialize(transactions)), StandardCharsets.UTF_16);
 
         } catch (final IOException e) {
             e.printStackTrace();
@@ -72,46 +75,44 @@ public class TransactionRepository {
     public void add(final Transaction transaction) {
         final Transaction finalTransaction = new Transaction();
         finalTransaction.setId(++id);
-        finalTransaction.setTime(LocalDateTime.now());
-        finalTransaction.setAmount_of_transaction(transaction.getAmount_of_transaction());
+        finalTransaction.setTime(transaction.getTime());
+        finalTransaction.setAmountOfTransaction(transaction.getAmountOfTransaction());
         finalTransaction.setIdSender(transaction.getIdSender());
         finalTransaction.setIdReceiver(transaction.getIdReceiver());
         finalTransaction.setMessage(transaction.getMessage());
         transactions.add(finalTransaction);
-
     }
 
     public void update(final Long id, final TransactionDTO dto) {
         final Transaction update = findById(id);
         update.setId(dto.getId());
         update.setTime(dto.getTime());
-        update.setAmount_of_transaction(dto.getAmount_of_transaction());
+        update.setAmountOfTransaction(dto.getAmountOfTransaction());
         update.setIdSender(dto.getIdSender());
         update.setIdReceiver(dto.getIdReceiver());
         update.setMessage(dto.getMessage());
-
-
     }
+
     public Transaction get(final Long id) {
         return findById(id);
     }
 
     public Transaction findById(final Long id) {
-        return transactions.stream().filter(e -> e.getId().equals(id)).findFirst().orElseThrow();
+        return transactions.stream().filter(e -> e.getId().equals(id)).findFirst()
+                .orElseThrow(() -> new ServiceException("No such id when finding"));
     }
-    public void setTransactions(final Long id, final Transaction transaction) {
+
+    public void set(final Long id, final Transaction transaction) {
         final Transaction newTrans = findById(id);
         newTrans.setIdSender(transaction.getIdSender());
         newTrans.setIdReceiver(transaction.getIdReceiver());
-        newTrans.setAmount_of_transaction(transaction.getAmount_of_transaction());
+        newTrans.setAmountOfTransaction(transaction.getAmountOfTransaction());
         newTrans.setTime(transaction.getTime());
         newTrans.setMessage(transaction.getMessage());
     }
-    public List<Transaction> getTransactions() {
-        return transactions;
-    }
+
 
     public void delete(final Long id) {
-        transactions.removeIf(e -> e.getId().equals(id));
+        setTransactions(transactions.stream().filter(e -> !e.getId().equals(id)).collect(Collectors.toList()));
     }
 }
