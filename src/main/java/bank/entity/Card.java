@@ -18,7 +18,8 @@ public class Card {
 
     @Override
     public String toString() {
-        return id + " " + amount + " " + cardNumber + " " + idClient;
+        return id + " " + amount + " " + cardNumber
+                + " " + idClient;
     }
 
 }

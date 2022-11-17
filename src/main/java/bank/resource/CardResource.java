@@ -22,9 +22,9 @@ public class CardResource {
     }
 
     @PutMapping
-    public ResponseEntity<CardDTO> put(final @RequestBody CardDTO accountDTO) {
-        cardService.update(accountDTO);
-        return ResponseEntity.ok(accountDTO);
+    public ResponseEntity<CardDTO> put(final @RequestBody CardDTO cardDTO) {
+        cardService.update(cardDTO);
+        return ResponseEntity.ok(cardDTO);
     }
 
     @GetMapping
