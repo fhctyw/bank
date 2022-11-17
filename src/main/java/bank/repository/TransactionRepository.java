@@ -75,7 +75,7 @@ public class TransactionRepository {
     public void add(final Transaction transaction) {
         final Transaction finalTransaction = new Transaction();
         finalTransaction.setId(++id);
-        finalTransaction.setTime(LocalDateTime.now()); // ?
+        finalTransaction.setTime(transaction.getTime());
         finalTransaction.setAmountOfTransaction(transaction.getAmountOfTransaction());
         finalTransaction.setIdSender(transaction.getIdSender());
         finalTransaction.setIdReceiver(transaction.getIdReceiver());
