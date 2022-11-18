@@ -28,7 +28,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountDTO read(final Long id) { ///  idClient
+    public AccountDTO read(final Long id) {
         final Account account = accountRepository.get(id);
         final AccountDTO dto = mapperAccount.toDto(account);
         return dto;
@@ -46,7 +46,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<AccountDTO> getAll() {
-        return accountRepository.getAccounts().stream().map(mapperAccount::toDTO).collect(Collectors.toList());
+        return accountRepository.getAccounts().stream().map(mapperAccount::toDto).collect(Collectors.toList());
     }
 
 }

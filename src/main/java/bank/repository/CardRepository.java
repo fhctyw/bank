@@ -91,6 +91,7 @@ public class CardRepository {
         cardFinal.setCardNumber(++cardNumber);
         cardFinal.setIdClient(card.getIdClient());
         cardFinal.setAmount(card.getAmount());
+        cardFinal.setIdAccount(card.getIdAccount());
         cards.add(cardFinal);
     }
 
@@ -108,6 +109,8 @@ public class CardRepository {
         final Card c = findById(id);
         c.setCardNumber(card.getCardNumber());
         c.setIdClient(card.getCardNumber());
+        c.setIdAccount(card.getIdAccount());
+        c.setAmount(card.getAmount());
     }
 
     public void deleteCard(final Long id) {

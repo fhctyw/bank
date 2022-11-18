@@ -58,8 +58,7 @@ public class AccountRepository {
     public void add(final Account account) {
         final Account finalAccount = new Account();
         finalAccount.setId(UUID.randomUUID());
-        finalAccount.setIdClient(account.getIdClient());//??????????????????????????????
-        finalAccount.setIdCards(account.getIdCards());
+        finalAccount.setIdClient(account.getIdClient());
         finalAccount.setAmount(account.getAmount());
         finalAccount.setIdCurrency(account.getIdCurrency());
         accounts.add(finalAccount);
@@ -79,8 +78,6 @@ public class AccountRepository {
        update.setIdClient(dto.getIdClient());
        update.setAmount(dto.getAmount());
        update.setIdCurrency(dto.getIdCurrency());
-       update.setIdCards(dto.getIdCards());
-
     }
     public void deleteByClientId(final Long id) {
         setAccounts(accounts.stream().filter(e -> !e.getIdClient().equals(id)).collect(Collectors.toList()));

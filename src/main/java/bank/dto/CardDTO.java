@@ -13,6 +13,8 @@ import java.math.BigDecimal;
 public class CardDTO {
     private Long id;
     @NotNull
+    private Long idAccount;
+    @NotNull
     private BigDecimal amount;
     @NotNull
     private Long cardNumber;

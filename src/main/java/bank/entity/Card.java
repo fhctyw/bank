@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class Card {
     private Long id;
+    private Long idAccount;
     private BigDecimal amount;
     private Long cardNumber;
     private Long idClient;
