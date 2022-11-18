@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MapperAccount {
 
-    public AccountDTO toDTO(final Account account) {
+    public AccountDTO toDto(final Account account) {
         final AccountDTO dto = new AccountDTO();
         dto.setId(account.getId());
         dto.setIdClient(account.getIdClient());

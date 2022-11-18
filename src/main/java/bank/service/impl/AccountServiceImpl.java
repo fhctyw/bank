@@ -27,7 +27,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountDTO read(final Long id) { ///  idClient
         final Account account = accountRepository.get(id);
-        final AccountDTO dto = mapperAccount.toDTO(account);
+        final AccountDTO dto = mapperAccount.toDto(account);
         return dto;
     }
 
