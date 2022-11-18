@@ -1,7 +1,7 @@
 package bank.repository;
 
-import bank.entity.Consultant;
 import bank.entity.Currency;
+import bank.exception.ServiceException;
 import bank.util.JacksonUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.stereotype.Component;
@@ -15,11 +15,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class CurrencyRepository {
     final private String source = "currencies.txt";
     private List<Currency> currencies = new ArrayList<>();
+
+    public List<Currency> getCurrencies() {
+        return currencies;
+    }
+
+    public void setCurrencies(List<Currency> currencies) {
+        this.currencies = currencies;
+    }
 
     @PostConstruct
     public void postConstructor() {
@@ -53,17 +62,17 @@ public class CurrencyRepository {
     }
 
     public Currency findByCode(final String code) {
-        return currencies.stream().filter(e -> e.getCode().equals(code)).findFirst().orElseThrow();
+        return currencies.stream().filter(e -> e.getCode().equals(code)).findFirst()
+                .orElseThrow(() -> new ServiceException("No such id when finding"));
     }
 
     public void setCurrency(final Currency currency) {
         final Currency c = findByCode(currency.getCode());
         c.setCode(currency.getCode());
         c.setValue(currency.getValue());
-
     }
 
     public void deleteCurrency(final String code) {
-        currencies.removeIf(e -> e.getCode().equals(code));
+        setCurrencies(currencies.stream().filter(e -> !e.getCode().equals(code)).collect(Collectors.toList()));
     }
 }

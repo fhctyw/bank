@@ -17,7 +17,7 @@ public class TransactionDTO {
     @NotNull
     private LocalDateTime time;
     @NotNull
-    private BigDecimal amountOfTransaction;
+    private BigDecimal amount;
     @NotNull
     private Long idReceiver;
     @NotNull

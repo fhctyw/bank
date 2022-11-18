@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
@@ -39,6 +42,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void delete(final Long id) { ///idClient
         accountRepository.deleteByClientId(id);
+    }
+
+    @Override
+    public List<AccountDTO> getAll() {
+        return accountRepository.getAccounts().stream().map(mapperAccount::toDTO).collect(Collectors.toList());
     }
 
 }

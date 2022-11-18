@@ -2,6 +2,7 @@ package bank.repository;
 
 import bank.dto.AccountDTO;
 import bank.entity.Account;
+import bank.exception.ServiceException;
 import bank.util.JacksonUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.stereotype.Repository;
@@ -16,12 +17,16 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Repository
 public class AccountRepository {
     private final String source = "accounts.txt";
      List<Account> accounts = new ArrayList<>();
 
+    public void setAccounts(final List<Account> accounts) {
+        this.accounts = accounts;
+    }
 
     @PostConstruct
     public void postConstructor() {
@@ -36,7 +41,7 @@ public class AccountRepository {
             }
 
         } catch (final IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("file " + source + " doesn't exist");
         }
     }
     @PreDestroy
@@ -62,14 +67,15 @@ public class AccountRepository {
     }
 
     public Account findById(final Long id) {
-        return accounts.stream().filter(e->e.getIdClient().equals(id)).findFirst().orElseThrow();
+        return accounts.stream().filter(e->e.getIdClient().equals(id)).findFirst()
+                .orElseThrow(() -> new ServiceException("No such id when finding"));
     }
     public Account get(final Long id) {
         return findById(id);
     }
     public void update(final Long id,final AccountDTO dto) {
        final Account update = findById(id);
-       update.setId(dto.getId());//??????
+       update.setId(dto.getId());
        update.setIdClient(dto.getIdClient());
        update.setAmount(dto.getAmount());
        update.setIdCurrency(dto.getIdCurrency());
@@ -77,10 +83,10 @@ public class AccountRepository {
 
     }
     public void deleteByClientId(final Long id) {
-        accounts.removeIf(e->e.getIdClient().equals(id));
+        setAccounts(accounts.stream().filter(e -> !e.getIdClient().equals(id)).collect(Collectors.toList()));
     }
     public void deleteUUID(final Long id) {
-        accounts.removeIf(e->e.getId().equals(id));
+        setAccounts(accounts.stream().filter(e -> !e.getId().equals(id)).collect(Collectors.toList()));
     }
     public List<Account> getAccounts() {
         return accounts;

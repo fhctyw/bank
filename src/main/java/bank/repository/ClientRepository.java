@@ -2,6 +2,7 @@ package bank.repository;
 
 import bank.entity.Client;
 import bank.entity.Consultant;
+import bank.exception.ServiceException;
 import bank.util.JacksonUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class ClientRepository {
@@ -24,6 +26,10 @@ public class ClientRepository {
 
     public List<Client> getClients() {
         return clients;
+    }
+
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
     }
 
     public Long getId() {
@@ -51,7 +57,7 @@ public class ClientRepository {
             id = maxId;
 
         } catch (final IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("file " + source + " doesn't exist");
         }
     }
 
@@ -79,7 +85,7 @@ public class ClientRepository {
         return clients.stream()
                 .filter(e -> e.getId().equals(id))
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(() -> new ServiceException("No such id when finding"));
     }
 
     public void setClient(final Long id, final Client client) {
@@ -91,6 +97,6 @@ public class ClientRepository {
     }
 
     public void deleteClient(final Long id) {
-        clients.removeIf(e -> e.getId().equals(id));
+        setClients(clients.stream().filter(e -> !e.getId().equals(id)).collect(Collectors.toList()));
     }
 }

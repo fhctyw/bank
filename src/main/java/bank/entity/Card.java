@@ -3,7 +3,6 @@ package bank.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 import java.math.BigDecimal;
 
@@ -15,11 +14,5 @@ public class Card {
     private BigDecimal amount;
     private Long cardNumber;
     private Long idClient;
-
-    @Override
-    public String toString() {
-        return id + " " + amount + " " + cardNumber + " " + idClient;
-    }
-
 }
 

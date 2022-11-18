@@ -15,7 +15,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -76,7 +75,7 @@ public class TransactionRepository {
         final Transaction finalTransaction = new Transaction();
         finalTransaction.setId(++id);
         finalTransaction.setTime(transaction.getTime());
-        finalTransaction.setAmountOfTransaction(transaction.getAmountOfTransaction());
+        finalTransaction.setAmount(transaction.getAmount());
         finalTransaction.setIdSender(transaction.getIdSender());
         finalTransaction.setIdReceiver(transaction.getIdReceiver());
         finalTransaction.setMessage(transaction.getMessage());
@@ -87,7 +86,7 @@ public class TransactionRepository {
         final Transaction update = findById(id);
         update.setId(dto.getId());
         update.setTime(dto.getTime());
-        update.setAmountOfTransaction(dto.getAmountOfTransaction());
+        update.setAmount(dto.getAmount());
         update.setIdSender(dto.getIdSender());
         update.setIdReceiver(dto.getIdReceiver());
         update.setMessage(dto.getMessage());
@@ -106,7 +105,7 @@ public class TransactionRepository {
         final Transaction newTrans = findById(id);
         newTrans.setIdSender(transaction.getIdSender());
         newTrans.setIdReceiver(transaction.getIdReceiver());
-        newTrans.setAmountOfTransaction(transaction.getAmountOfTransaction());
+        newTrans.setAmount(transaction.getAmount());
         newTrans.setTime(transaction.getTime());
         newTrans.setMessage(transaction.getMessage());
     }

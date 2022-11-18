@@ -14,11 +14,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DepositDTO {
-    @NotBlank
-    private String client;
     private BigDecimal amount;
     @NotNull
-    private Long depositId;
+    private Long Id;
     @NotNull
     private Long cardId;
     @NotNull

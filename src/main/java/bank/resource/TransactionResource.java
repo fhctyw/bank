@@ -1,6 +1,7 @@
 package bank.resource;
 
 import bank.dto.TransactionDTO;
+import bank.dto.TransferMoneyDTO;
 import bank.service.TransactionService;
 import bank.service.impl.TransactionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,13 @@ public class TransactionResource {
         return transactionService.readAll();
     }
 
+    @GetMapping("/all")
+    public List<TransactionDTO> getAll() {
+        return transactionService.getAll();
+    }
 
+    @PostMapping("/transfer-money")
+    public TransactionDTO transfer(final @RequestBody TransferMoneyDTO transferMoneyDTO) {
+        return transactionService.transfer(transferMoneyDTO);
+    }
 }

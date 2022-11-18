@@ -2,27 +2,36 @@ package bank.repository;
 
 
 import bank.entity.Card;
+import bank.exception.ServiceException;
 import bank.util.JacksonUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.io.IOError;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Component
 public class CardRepository {
     private final String source = "cards.txt";
     private List<Card> cards = new ArrayList<>();
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
+
     private Long id;
     private Long cardNumber = 0L;
 
@@ -65,12 +74,12 @@ public class CardRepository {
     }
 
     @PreDestroy
-    public void preDestroy(){
+    public void preDestroy() {
         final Path file = Paths.get(source);
 
-        try{
-            Files.writeString(file,JacksonUtil.serialize(cards),StandardCharsets.UTF_16);
-        }catch (final IOException e){
+        try {
+            Files.writeString(file, Objects.requireNonNull(JacksonUtil.serialize(cards)), StandardCharsets.UTF_16);
+        } catch (final IOException e) {
             e.printStackTrace();
         }
     }
@@ -85,8 +94,14 @@ public class CardRepository {
         cards.add(cardFinal);
     }
 
+    public Card findByNumber(final Long number) {
+        return cards.stream().filter(e -> e.getCardNumber().equals(number)).findFirst()
+                .orElseThrow(() -> new ServiceException("No such card number when finding"));
+    }
+
     public Card findById(final Long id) {
-        return cards.stream().filter(e -> e.getId().equals(id)).findFirst().orElseThrow();
+        return cards.stream().filter(e -> e.getId().equals(id)).findFirst()
+                .orElseThrow(() -> new ServiceException("No such id when finding"));
     }
 
     public void setCard(final Long id, final Card card) {
@@ -96,7 +111,7 @@ public class CardRepository {
     }
 
     public void deleteCard(final Long id) {
-        cards.removeIf(e -> e.getId().equals(id));
+        setCards(cards.stream().filter(e -> !e.getId().equals(id)).collect(Collectors.toList()));
     }
 
 

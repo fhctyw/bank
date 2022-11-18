@@ -10,13 +10,11 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CardDTO {
-    private Long id;
+public class TransferMoneyDTO {
+    @NotNull
+    private Long numberCardSender;
+    @NotNull
+    private Long numberCardReceiver;
     @NotNull
     private BigDecimal amount;
-    @NotNull
-    private Long cardNumber;
-    @NotNull
-    private Long idClient;
-
 }

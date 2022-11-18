@@ -8,9 +8,8 @@ import org.springframework.stereotype.Component;
 public class MapperDeposit {
     public DepositDTO toDTO(final Deposit deposit){
         final DepositDTO dto = new DepositDTO();
-        dto.setClient(deposit.getClient());
         dto.setAmount(deposit.getAmount());
-        dto.setDepositId(deposit.getDepositId());
+        dto.setId(deposit.getId());
         dto.setCardId(deposit.getCardId());
         dto.setConsultantId(deposit.getConsultantId());
         dto.setPutTime(deposit.getPutTime());
@@ -21,9 +20,8 @@ public class MapperDeposit {
 
     public Deposit toEntity(DepositDTO dto){
         final Deposit deposit = new Deposit();
-        deposit.setClient(dto.getClient());
         deposit.setAmount(dto.getAmount());
-        deposit.setDepositId(dto.getDepositId());
+        deposit.setId(dto.getId());
         deposit.setCardId(dto.getCardId());
         deposit.setConsultantId(dto.getConsultantId());
         deposit.setPutTime(dto.getPutTime());
