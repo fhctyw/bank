@@ -17,6 +17,10 @@ public class ServiceException extends RuntimeException {
         this(code, message, "");
     }
 
+    public ServiceException(final String message, final String details) {
+        this(HttpStatus.BAD_REQUEST.value(), message, details);
+    }
+
     public ServiceException(final String message) {
         this(HttpStatus.BAD_REQUEST.value(), message);
     }
