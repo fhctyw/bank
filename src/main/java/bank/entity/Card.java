@@ -5,13 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Card {
     private Long id;
-    private Long idAccount;
+    private UUID idAccount;
     private BigDecimal amount;
     private Long cardNumber;
     private Long idClient;
