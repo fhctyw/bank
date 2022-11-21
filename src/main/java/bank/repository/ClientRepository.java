@@ -1,7 +1,6 @@
 package bank.repository;
 
 import bank.entity.Client;
-import bank.entity.Consultant;
 import bank.exception.ServiceException;
 import bank.util.JacksonUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -16,19 +15,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Repository
 public class ClientRepository {
     private final String source = "clients.txt";
     private List<Client> clients = new ArrayList<>();
-    private Long id;
+    private Long id = 0L;
 
     public List<Client> getClients() {
         return clients;
     }
 
-    public void setClients(List<Client> clients) {
+    public void setClients(final List<Client> clients) {
         this.clients = clients;
     }
 
@@ -36,7 +36,7 @@ public class ClientRepository {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -44,7 +44,7 @@ public class ClientRepository {
     public void postConstructor() {
         final Path file = Paths.get(source);
         try {
-            clients = JacksonUtil.deserialize(Files.readString(file, StandardCharsets.UTF_16), new TypeReference<List<Client>>() {
+            clients = JacksonUtil.deserialize(Files.readString(file, StandardCharsets.UTF_16), new TypeReference<>() {
             });
 
             if (clients == null) {
@@ -54,7 +54,7 @@ public class ClientRepository {
 
             final long maxId = clients.stream().mapToLong(Client::getId).max().orElse(1);
 
-            id = maxId;
+            id = maxId + 1;
 
         } catch (final IOException e) {
             System.out.println("file " + source + " doesn't exist");
@@ -66,7 +66,7 @@ public class ClientRepository {
         final Path file = Paths.get(source);
 
         try {
-            Files.writeString(file, JacksonUtil.serialize(clients), StandardCharsets.UTF_16);
+            Files.writeString(file, Objects.requireNonNull(JacksonUtil.serialize(clients)), StandardCharsets.UTF_16);
         } catch (final IOException e) {
             e.printStackTrace();
         }

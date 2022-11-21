@@ -1,13 +1,21 @@
 package bank.service;
 
 import bank.dto.ClientDTO;
+import bank.dto.RegisterDTO;
+import bank.dto.RegisterResponseDTO;
 
 import java.util.List;
 
 public interface ClientService {
-    void create(ClientDTO dto);
+    ClientDTO create(ClientDTO dto);
+
     ClientDTO read(Long id);
-    void update(ClientDTO dto);
-    void delete(Long id);
+
+    ClientDTO update(ClientDTO dto);
+
+    ClientDTO delete(Long id);
+
     List<ClientDTO> getAll();
+
+    RegisterResponseDTO register(RegisterDTO registerDTO);
 }
