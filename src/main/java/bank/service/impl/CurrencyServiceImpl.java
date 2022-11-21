@@ -7,7 +7,6 @@ import bank.mapper.MapperCurrency;
 import bank.repository.CurrencyRepository;
 import bank.service.CurrencyService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,13 +21,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
 @Service
 public class CurrencyServiceImpl implements CurrencyService {
     @Autowired
-    private final MapperCurrency mapperCurrency;
+    private final MapperCurrency mapperCurrency = new MapperCurrency();
     @Autowired
-    private final CurrencyRepository currencyRepository;
+    private final CurrencyRepository currencyRepository = new CurrencyRepository();
 
     @PostConstruct
     public void postConstruct() {
@@ -47,8 +45,10 @@ public class CurrencyServiceImpl implements CurrencyService {
 
             for (final Map.Entry<String, Object> entry : data.entrySet()) {
                 final Map<String, Object> currency = (Map<String, Object>) entry.getValue();
-                create(new CurrencyDTO((String) currency.get("code"), new BigDecimal(currency.get("value").toString())));
+                currencyList.add(new CurrencyDTO((String) currency.get("code"), new BigDecimal(currency.get("value").toString())));
             }
+
+            currencyRepository.setCurrencies(currencyList.stream().map(mapperCurrency::toEntity).collect(Collectors.toList()));
 
         } catch (final Exception ex) {
             System.out.println("Cannot get currency");

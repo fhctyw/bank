@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @RestController
@@ -28,18 +29,18 @@ public class CurrencyResource {
     }
 
     @GetMapping
-    public CurrencyDTO get(final @RequestBody String code) {
+    public CurrencyDTO get(final @RequestBody @Validated @NotBlank String code) {
         return currencyService.read(code);
     }
 
     @DeleteMapping
-    public CurrencyDTO delete(final @RequestBody String code) {
+    public CurrencyDTO delete(final @RequestBody @Validated @NotBlank String code) {
         return currencyService.delete(code);
     }
 
     @GetMapping(value = "/all")
     public List<CurrencyDTO> getAll() {
-            return currencyService.getAll();
+        return currencyService.getAll();
     }
 }
 
