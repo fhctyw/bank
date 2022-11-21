@@ -6,6 +6,7 @@ import bank.service.TransactionService;
 import bank.service.impl.TransactionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,7 +48,7 @@ public class TransactionResource {
     }
 
     @PostMapping("/transfer-money")
-    public TransactionDTO transfer(final @RequestBody TransferMoneyDTO transferMoneyDTO) {
+    public TransactionDTO transfer(final @Validated @RequestBody TransferMoneyDTO transferMoneyDTO) {
         return transactionService.transfer(transferMoneyDTO);
     }
 }
