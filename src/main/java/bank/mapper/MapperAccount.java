@@ -11,7 +11,7 @@ public class MapperAccount {
         final AccountDTO dto = new AccountDTO();
         dto.setId(account.getId());
         dto.setIdClient(account.getIdClient());
-        dto.setIdCurrency(account.getIdCurrency());
+        dto.setCodeCurrency(account.getCodeCurrency());
         dto.setAmount(account.getAmount());
         return dto;
     }
@@ -20,7 +20,7 @@ public class MapperAccount {
         final Account account = new Account();
         account.setId(dto.getId());
         account.setIdClient(dto.getIdClient());
-        account.setIdCurrency(dto.getIdCurrency());
+        account.setCodeCurrency(dto.getCodeCurrency());
         account.setAmount(dto.getAmount());
         return account;
     }
