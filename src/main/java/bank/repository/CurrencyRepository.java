@@ -15,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -26,7 +27,7 @@ public class CurrencyRepository {
         return currencies;
     }
 
-    public void setCurrencies(List<Currency> currencies) {
+    public void setCurrencies(final List<Currency> currencies) {
         this.currencies = currencies;
     }
 
@@ -34,15 +35,14 @@ public class CurrencyRepository {
     public void postConstructor() {
         final Path file = Paths.get(source);
         try {
-            currencies = JacksonUtil.deserialize(Files.readString(file, StandardCharsets.UTF_16), new TypeReference<List<Currency>>() {});
+            currencies = JacksonUtil.deserialize(Files.readString(file, StandardCharsets.UTF_16), new TypeReference<>() {});
 
             if (currencies == null) {
                 currencies = new ArrayList<>();
             }
 
-
         } catch (final IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("file " + source + " doesn't exist");
         }
     }
 
@@ -51,13 +51,13 @@ public class CurrencyRepository {
         final Path file = Paths.get(source);
 
         try {
-            Files.writeString(file, JacksonUtil.serialize(currencies), StandardCharsets.UTF_16);
+            Files.writeString(file, Objects.requireNonNull(JacksonUtil.serialize(currencies)), StandardCharsets.UTF_16);
         } catch (final IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void addCurrency(final Currency currency) {
+    public void add(final Currency currency) {
         currencies.add(currency);
     }
 
@@ -66,13 +66,13 @@ public class CurrencyRepository {
                 .orElseThrow(() -> new ServiceException("No such id when finding"));
     }
 
-    public void setCurrency(final Currency currency) {
+    public void set(final Currency currency) {
         final Currency c = findByCode(currency.getCode());
         c.setCode(currency.getCode());
         c.setValue(currency.getValue());
     }
 
-    public void deleteCurrency(final String code) {
+    public void delete(final String code) {
         setCurrencies(currencies.stream().filter(e -> !e.getCode().equals(code)).collect(Collectors.toList()));
     }
 }
