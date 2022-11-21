@@ -14,6 +14,6 @@ import java.util.UUID;
 public class Account {
     private UUID id;
     private Long idClient;
-    private Long idCurrency;
+    private String codeCurrency;
     private BigDecimal amount;
 }
