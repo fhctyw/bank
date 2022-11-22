@@ -16,15 +16,14 @@ public class CreditResource {
     private final CreditService creditService = new CreditServiceImpl();
 
     @PostMapping
-    public String create(final @RequestBody CreditDTO creditDTO){
-        creditService.create(creditDTO);
-        return "All good";
+    public CreditDTO create(final @RequestBody CreditDTO creditDTO){
+        final CreditDTO dto = creditService.create(creditDTO);
+        return dto;
     }
 
     @PutMapping
-    public ResponseEntity<CreditDTO> put(final @RequestBody CreditDTO dto){
-        creditService.update(dto);
-        return ResponseEntity.ok(dto);
+    public CreditDTO put(final @RequestBody CreditDTO dto){
+        return creditService.update(dto);
     }
 
     @GetMapping
@@ -33,10 +32,8 @@ public class CreditResource {
     }
 
     @DeleteMapping
-    public ResponseEntity<CreditDTO> delete(final @RequestBody Long id){
-        final CreditDTO creditDTO = get(id);
-        creditService.delete(id);
-        return ResponseEntity.ok(creditDTO);
+    public CreditDTO delete(final @RequestBody Long id){
+        return creditService.delete(id);
     }
 
 }

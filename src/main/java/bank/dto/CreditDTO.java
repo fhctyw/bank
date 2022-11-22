@@ -21,6 +21,6 @@ public class CreditDTO {
     private BigDecimal amount;
     @NotNull
     private int percent;
-    private Date firstDate;
-    private Date secondDate;
+    private LocalDateTime firstDate;
+    private LocalDateTime secondDate;
 }

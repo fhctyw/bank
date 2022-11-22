@@ -1,6 +1,7 @@
 package bank.repository;
 
 import bank.entity.Credit;
+import bank.exception.ServiceException;
 import bank.util.JacksonUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.stereotype.Component;
@@ -23,10 +24,16 @@ public class CreditRepository {
 
     private final String source = "credits.txt";
     private List<Credit> credits = new ArrayList<>();
-    private Long id;
+    private Long id = 0L;
+
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(){this.id = id;}
 
     @PostConstruct
-    public void postConstructorId(){
+    public void postConstructor(){
         final Path file = Paths.get(source);
         try{
             credits = JacksonUtil.deserialize(Files.readString(file, StandardCharsets.UTF_16),
@@ -36,8 +43,11 @@ public class CreditRepository {
                 credits = new ArrayList<>();
                 return;
             }
+
+            final long maxId = credits.stream().mapToLong(Credit::getId).max().orElse(1);
+            id = maxId;
         }catch (final IOException o){
-            throw new RuntimeException(o);
+            System.out.println("File " + source + " doesn't exist");;
         }
 
     }
@@ -59,12 +69,15 @@ public class CreditRepository {
         creditFinal.setPercent(credit.getPercent());
         creditFinal.setAmount(credit.getAmount());
         creditFinal.setIdClient(credit.getIdClient());
-        creditFinal.setFirstDate(new Date());
+        creditFinal.setFirstDate(credit.getFirstDate());
         creditFinal.setSecondDate(credit.getSecondDate());
+        credits.add(creditFinal);
     }
 
     public Credit findById(final Long id) {
-        return credits.stream().filter(e -> e.getId().equals(id)).findFirst().orElseThrow();
+        return credits.stream().filter(e -> e.getId().equals(id)).
+                findFirst()
+                .orElseThrow(() -> new ServiceException("No such id when finding"));
     }
 
     public void setCredits(final Long id, final Credit credit) {

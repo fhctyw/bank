@@ -19,8 +19,8 @@ public class Credit {
     private Long idClient;
     private BigDecimal amount;
     private int percent;
-    private Date firstDate;
-    private Date secondDate;
+    private LocalDateTime firstDate;
+    private LocalDateTime secondDate;
 
     @Override
     public String toString() {

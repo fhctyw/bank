@@ -3,7 +3,6 @@ package bank.service.impl;
 import bank.dto.CreditDTO;
 import bank.entity.Credit;
 import bank.mapper.MapperCredit;
-import bank.repository.CardRepository;
 import bank.repository.CreditRepository;
 import bank.service.CreditService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +22,11 @@ public class CreditServiceImpl implements CreditService {
     }
 
     @Override
-    public void create(final CreditDTO dto){
+    public CreditDTO create(final CreditDTO dto){
         final Credit credit = mapperCredit.toEntity(dto);
         creditRepository.add(credit);
+        final Credit creditInRepos = creditRepository.findById(creditRepository.getId());
+        return mapperCredit.toDTO(creditInRepos);
     }
 
     @Override
@@ -34,13 +35,15 @@ public class CreditServiceImpl implements CreditService {
     }
 
     @Override
-    public void update(final CreditDTO dto){
+    public CreditDTO update(final CreditDTO dto){
         creditRepository.setCredits(dto.getId(), mapperCredit.toEntity(dto));
+        return dto;
     }
 
     @Override
-    public void delete(final Long id){
+    public CreditDTO delete(final Long id){
         creditRepository.deleteCredit(id);
+        return null;
     }
 
 }
