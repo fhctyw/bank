@@ -27,13 +27,13 @@ public class DepositResource {
         return ResponseEntity.ok(depositDTO);
     }
 
-    @GetMapping
-    public DepositDTO get(final @RequestBody Long id) {
+    @GetMapping("/{id}")
+    public DepositDTO get(final @PathVariable Long id) {
         return depositService.read(id);
     }
 
-    @DeleteMapping
-    public ResponseEntity<DepositDTO> delete(final @RequestBody Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<DepositDTO> delete(final @PathVariable Long id) {
         final DepositDTO depositDTO = get(id);
         depositService.delete(id);
         return ResponseEntity.ok(depositDTO);

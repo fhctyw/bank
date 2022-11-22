@@ -27,13 +27,13 @@ public class TransactionResource {
         return transactionService.update(transactionDTO);
     }
 
-    @GetMapping
-    public TransactionDTO get(final @RequestBody Long id) {
+    @GetMapping("/{id}")
+    public TransactionDTO get(final @PathVariable Long id) {
         return transactionService.read(id);
     }
 
-    @DeleteMapping
-    public TransactionDTO delete(final @RequestBody Long id) {
+    @DeleteMapping("/{id}")
+    public TransactionDTO delete(final @PathVariable Long id) {
         return transactionService.delete(id);
     }
 
@@ -42,8 +42,8 @@ public class TransactionResource {
         return transactionService.readAll();
     }
 
-    @GetMapping("/historyClient")
-    public List<TransactionDTO> getHistoryByClient(final @RequestBody Long id) {
+    @GetMapping("/history-client/{id}")
+    public List<TransactionDTO> getHistoryByClient(final @PathVariable Long id) {
         return transactionService.readClient(id);
     }
     @GetMapping("/all")

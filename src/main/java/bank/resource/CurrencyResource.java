@@ -28,13 +28,13 @@ public class CurrencyResource {
         return currencyService.update(currencyDTO);
     }
 
-    @GetMapping
-    public CurrencyDTO get(final @RequestBody @Validated @NotBlank String code) {
+    @GetMapping("/{code}")
+    public CurrencyDTO get(final @PathVariable @Validated @NotBlank String code) {
         return currencyService.read(code);
     }
 
-    @DeleteMapping
-    public CurrencyDTO delete(final @RequestBody @Validated @NotBlank String code) {
+    @DeleteMapping("/{code}")
+    public CurrencyDTO delete(final @PathVariable @Validated @NotBlank String code) {
         return currencyService.delete(code);
     }
 

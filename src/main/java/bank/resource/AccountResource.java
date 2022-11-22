@@ -28,13 +28,13 @@ public class AccountResource {
         return ResponseEntity.ok(accountDTO);
     }
 
-    @GetMapping
-    public AccountDTO get(final @RequestBody UUID id) {
+    @GetMapping("/{id}")
+    public AccountDTO get(final @PathVariable UUID id) {
         return accountService.read(id);
     }
 
-    @DeleteMapping
-    public ResponseEntity<AccountDTO> delete(final @RequestBody UUID id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<AccountDTO> delete(final @PathVariable UUID id) {
         final AccountDTO accountDTO = get(id);
         accountService.delete(id);
         return ResponseEntity.ok(accountDTO);

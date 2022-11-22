@@ -72,25 +72,20 @@ public class TransactionServiceImpl implements TransactionService {
         transactionRepository.delete(id);
         return mapperTransaction.toDto(transaction);
     }
-
     @Override
     public List<TransactionDTO> getAll() {
         return transactionRepository.getTransactions().stream().map(mapperTransaction::toDto).collect(Collectors.toList());
     }
-
     @Override
     public List<TransactionDTO> readClient(final Long id) {
-        final List<Transaction> list = new ArrayList<>();
-        list.addAll(transactionRepository.getTransactions().stream().filter(e -> e.getIdSender().equals(id)).toList());
-        list.addAll(transactionRepository.getTransactions().stream().filter(e -> e.getIdReceiver().equals(id)).toList());
+        final List<Transaction> list = new ArrayList<>(
+                transactionRepository.getTransactions().stream().filter(e -> e.getIdSender().equals(id) || e.getIdReceiver().equals(id)).toList());
         list.stream().findFirst().orElseThrow(() -> new ServiceException("No such id when finding"));
         return list.stream().map(mapperTransaction::toDto).collect(Collectors.toList());
     }
-
     private boolean validateAmount(final BigDecimal needAmount, final BigDecimal senderAmount) {
         return needAmount.compareTo(senderAmount) < 0;
     }
-
     @Override
     public TransactionDTO transfer(final TransferMoneyDTO dto) {
         final CardDTO senderCard = cardService.getByNumber(dto.getNumberCardSender());
