@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 public class MapperDeposit {
     public DepositDTO toDTO(final Deposit deposit){
         final DepositDTO dto = new DepositDTO();
+        dto.setBalance(deposit.getBalance());
         dto.setAmount(deposit.getAmount());
         dto.setId(deposit.getId());
         dto.setCardId(deposit.getCardId());
@@ -20,6 +21,7 @@ public class MapperDeposit {
 
     public Deposit toEntity(DepositDTO dto){
         final Deposit deposit = new Deposit();
+        deposit.setBalance(dto.getBalance());
         deposit.setAmount(dto.getAmount());
         deposit.setId(dto.getId());
         deposit.setCardId(dto.getCardId());

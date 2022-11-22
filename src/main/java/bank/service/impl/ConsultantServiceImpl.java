@@ -5,6 +5,7 @@ import bank.entity.Consultant;
 import bank.mapper.MapperConsultant;
 import bank.repository.ConsultantRepository;
 import bank.service.ConsultantService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +14,17 @@ import java.util.stream.Collectors;
 
 
 @Service
+@AllArgsConstructor
 public class ConsultantServiceImpl implements ConsultantService {
     @Autowired
-    final MapperConsultant mapperConsultant = new MapperConsultant();
+    private final MapperConsultant mapperConsultant;
     @Autowired
-    final ConsultantRepository consultantRepository = new ConsultantRepository();
+    private final ConsultantRepository consultantRepository;
+
+    public ConsultantServiceImpl() {
+        mapperConsultant = new MapperConsultant();
+        consultantRepository = new ConsultantRepository();
+    }
 
     @Override
     public ConsultantDTO create(final ConsultantDTO dto) {

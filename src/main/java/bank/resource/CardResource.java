@@ -28,13 +28,13 @@ public class CardResource {
         return ResponseEntity.ok(accountDTO);
     }
 
-    @GetMapping
-    public CardDTO get(final @RequestBody Long id) {
+    @GetMapping("/{id}")
+    public CardDTO get(final @PathVariable Long id) {
         return cardService.read(id);
     }
 
-    @DeleteMapping
-    public ResponseEntity<CardDTO> delete(final @RequestBody Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CardDTO> delete(final @PathVariable Long id) {
         final CardDTO cardDTO = get(id);
         cardService.delete(id);
         return ResponseEntity.ok(cardDTO);

@@ -14,9 +14,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 import java.util.stream.Collectors;
 
 @Repository
@@ -76,6 +78,7 @@ public class DepositRepository {
 
     public void add(final Deposit deposit) {
         final Deposit finalDeposit = new Deposit();
+        finalDeposit.setBalance(deposit.getBalance());
         finalDeposit.setAmount(deposit.getAmount());
         finalDeposit.setId(++id);
         finalDeposit.setCardId(deposit.getCardId());
@@ -88,6 +91,7 @@ public class DepositRepository {
 
     public void update(final Long id, final DepositDTO dto) {
         final Deposit update = findById(id);
+        update.setBalance(dto.getBalance());
         update.setAmount(dto.getAmount());
         update.setId(dto.getId());
         update.setCardId(dto.getCardId());
@@ -110,6 +114,8 @@ public class DepositRepository {
 
     public void setDeposit(final Long id, final Deposit deposit) {
         final Deposit c = findById(id);
+        c.setBalance(deposit.getBalance());
+        c.setAmount(deposit.getAmount());
         c.setId(deposit.getId());
         c.setCardId(deposit.getCardId());
         c.setConsultantId(deposit.getConsultantId());
@@ -118,7 +124,8 @@ public class DepositRepository {
         c.setPercentage(deposit.getPercentage());
     }
 
-    public void deleteDeposit(final Long id){
+    public void deleteDeposit(final Long id) {
         setDeposits(deposits.stream().filter(e -> !e.getId().equals(id)).collect(Collectors.toList()));
     }
+
 }
