@@ -91,7 +91,6 @@ public class TransactionRepository {
         update.setIdReceiver(dto.getIdReceiver());
         update.setMessage(dto.getMessage());
     }
-
     public Transaction get(final Long id) {
         return findById(id);
     }
@@ -100,7 +99,6 @@ public class TransactionRepository {
         return transactions.stream().filter(e -> e.getId().equals(id)).findFirst()
                 .orElseThrow(() -> new ServiceException("No such id when finding"));
     }
-
     public void set(final Long id, final Transaction transaction) {
         final Transaction newTrans = findById(id);
         newTrans.setIdSender(transaction.getIdSender());
