@@ -55,26 +55,26 @@ public class DepositServiceImpl implements DepositService {
         return depositRepository.getDeposits().stream().map(mapperDeposit::toDTO).collect(Collectors.toList());
     }
 
-    public double percentage() {
-        final DepositDTO dto = new DepositDTO();
-        final BigDecimal p;
-        final double percentage;
-        if (dto.getPercentage() == 0.0) {
-            InvalidDeposit depositError = new InvalidDeposit("Invalid percentage");
-        } else {
-            p = BigDecimal.valueOf(dto.getPercentage()).multiply(dto.getAmount());
-            dto.setAmount(p);
+//    public double percentage() {
+//        final DepositDTO dto = new DepositDTO();
+//        final BigDecimal p;
+//        final double percentage;
+//        if (dto.getPercentage() == 0.0) {
+//            InvalidDeposit depositError = new InvalidDeposit("Invalid percentage");
+//        } else {
+//            p = BigDecimal.valueOf(dto.getPercentage()).multiply(dto.getAmount());
+//            dto.setAmount(p);
+//
+//        }
+//        return
+//    }
 
-        }
-        return
-    }
-
-    public DepositDTO putDeposit(final DepositDTO dto) {
-
-        if (dto.getAmount().signum() <= 0) {
-            InvalidDeposit depositError = new InvalidDeposit("Invalid Deposit Amount");
-            System.out.println(depositError.getMessage());
-        } else {
-        }
-    }
+//    public DepositDTO putDeposit(final DepositDTO dto) {
+//
+//        if (dto.getAmount().signum() <= 0) {
+//            InvalidDeposit depositError = new InvalidDeposit("Invalid Deposit Amount");
+//            System.out.println(depositError.getMessage());
+//        } else {
+//        }
+//    }
 }

@@ -1,5 +1,6 @@
 package bank.dto;
 
+import bank.annotations.ContactNumber;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ public class RegisterDTO {
     @Email
     private String email;
     @NotBlank
+    @ContactNumber
     private String phoneNumber;
     @NotBlank
     private String codeCurrency;

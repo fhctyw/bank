@@ -1,5 +1,6 @@
 package bank.dto;
 
+import bank.annotations.ContactNumber;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,5 +18,6 @@ public class ClientDTO {
     private String email;
     private Long id;
     @NotBlank
+    @ContactNumber
     private String phoneNumber;
 }
