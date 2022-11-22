@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Deposit {
+    private BigDecimal balance;
     private BigDecimal amount;
     private Long Id;
     private Long cardId;
@@ -21,6 +22,6 @@ public class Deposit {
 
     @Override
     public String toString() {
-        return amount + " " + Id + " " + cardId + " " + consultantId + " " + putTime + " " + withdrawTime + " " + percentage;
+        return balance + " " + amount + " " + Id + " " + cardId + " " + consultantId + " " + putTime + " " + withdrawTime + " " + percentage;
     }
 }
