@@ -18,9 +18,9 @@ public class AccountResource {
     private final AccountService accountService = new AccountServiceImpl();
 
     @PostMapping
-    public String create(final @Validated @RequestBody AccountDTO accountDTO) {
+    public AccountDTO create(final @Validated @RequestBody AccountDTO accountDTO) {
         accountService.create(accountDTO);
-        return "All good";
+        return accountDTO;
     }
     @PutMapping
     public ResponseEntity<AccountDTO> put(final @Validated @RequestBody AccountDTO accountDTO) {

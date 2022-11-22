@@ -37,11 +37,15 @@ public class TransactionResource {
         return transactionService.delete(id);
     }
 
-    @GetMapping("history")
+    @GetMapping("/history")
     public List<TransactionDTO> getHistory() {
         return transactionService.readAll();
     }
 
+    @GetMapping("/historyClient")
+    public List<TransactionDTO> getHistoryByClient(final @RequestBody Long id) {
+        return transactionService.readClient(id);
+    }
     @GetMapping("/all")
     public List<TransactionDTO> getAll() {
         return transactionService.getAll();

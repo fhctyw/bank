@@ -5,6 +5,7 @@ import bank.dto.CardDTO;
 import bank.dto.TransactionDTO;
 import bank.dto.TransferMoneyDTO;
 import bank.entity.Transaction;
+import bank.exception.ServiceException;
 import bank.exception.TransferNotEnoughMoneyException;
 import bank.mapper.MapperTransaction;
 import bank.repository.TransactionRepository;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,6 +76,15 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<TransactionDTO> getAll() {
         return transactionRepository.getTransactions().stream().map(mapperTransaction::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TransactionDTO> readClient(final Long id) {
+        final List<Transaction> list = new ArrayList<>();
+        list.addAll(transactionRepository.getTransactions().stream().filter(e -> e.getIdSender().equals(id)).toList());
+        list.addAll(transactionRepository.getTransactions().stream().filter(e -> e.getIdReceiver().equals(id)).toList());
+        list.stream().findFirst().orElseThrow(() -> new ServiceException("No such id when finding"));
+        return list.stream().map(mapperTransaction::toDto).collect(Collectors.toList());
     }
 
     private boolean validateAmount(final BigDecimal needAmount, final BigDecimal senderAmount) {
