@@ -15,7 +15,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -75,7 +74,7 @@ public class TransactionRepository {
     public void add(final Transaction transaction) {
         final Transaction finalTransaction = new Transaction();
         finalTransaction.setId(++id);
-        finalTransaction.setTime(LocalDateTime.now());
+        finalTransaction.setTime(transaction.getTime());
         finalTransaction.setAmount(transaction.getAmount());
         finalTransaction.setIdSender(transaction.getIdSender());
         finalTransaction.setIdReceiver(transaction.getIdReceiver());
