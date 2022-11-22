@@ -12,9 +12,4 @@ public class Client {
     private String email;
     private Long id;
     private String phoneNumber;
-
-    @Override
-    public String toString() {
-        return fullName + " " + email + " " + id + " " + phoneNumber;
-    }
 }

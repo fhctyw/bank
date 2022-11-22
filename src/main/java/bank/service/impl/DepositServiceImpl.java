@@ -2,6 +2,7 @@ package bank.service.impl;
 
 import bank.dto.DepositDTO;
 import bank.entity.Deposit;
+import bank.exception.InvalidDeposit;
 import bank.mapper.MapperDeposit;
 import bank.repository.DepositRepository;
 import bank.service.DepositService;
@@ -9,7 +10,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,4 +55,26 @@ public class DepositServiceImpl implements DepositService {
         return depositRepository.getDeposits().stream().map(mapperDeposit::toDTO).collect(Collectors.toList());
     }
 
+    public double percentage() {
+        final DepositDTO dto = new DepositDTO();
+        final BigDecimal p;
+        final double percentage;
+        if (dto.getPercentage() == 0.0) {
+            InvalidDeposit depositError = new InvalidDeposit("Invalid percentage");
+        } else {
+            p = BigDecimal.valueOf(dto.getPercentage()).multiply(dto.getAmount());
+            dto.setAmount(p);
+
+        }
+        return
+    }
+
+    public DepositDTO putDeposit(final DepositDTO dto) {
+
+        if (dto.getAmount().signum() <= 0) {
+            InvalidDeposit depositError = new InvalidDeposit("Invalid Deposit Amount");
+            System.out.println(depositError.getMessage());
+        } else {
+        }
+    }
 }

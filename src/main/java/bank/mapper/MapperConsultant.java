@@ -10,6 +10,8 @@ public class MapperConsultant {
         final ConsultantDTO dto = new ConsultantDTO();
         dto.setId(consultant.getId());
         dto.setFullName(consultant.getFullName());
+        dto.setEmail(consultant.getEmail());
+        dto.setPhoneNumber(consultant.getPhoneNumber());
         return dto;
     }
 
@@ -17,6 +19,8 @@ public class MapperConsultant {
         final Consultant consultant = new Consultant();
         consultant.setId(dto.getId());
         consultant.setFullName(dto.getFullName());
+        consultant.setEmail(dto.getEmail());
+        consultant.setPhoneNumber(dto.getPhoneNumber());
         return consultant;
     }
 }

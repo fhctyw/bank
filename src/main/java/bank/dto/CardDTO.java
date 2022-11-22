@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -12,9 +13,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CardDTO {
-    @NotNull
     private Long id;
     @NotNull
+    private UUID idAccount;
+    @NotNull
+    @Positive
     private BigDecimal amount;
     @NotNull
     private Long cardNumber;

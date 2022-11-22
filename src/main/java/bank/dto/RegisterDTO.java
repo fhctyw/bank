@@ -8,14 +8,15 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class ConsultantDTO {
-    private Long id;
+@NoArgsConstructor
+public class RegisterDTO {
     @NotBlank
     private String fullName;
     @Email
     private String email;
     @NotBlank
     private String phoneNumber;
+    @NotBlank
+    private String codeCurrency;
 }

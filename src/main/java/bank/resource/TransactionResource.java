@@ -1,10 +1,12 @@
 package bank.resource;
 
 import bank.dto.TransactionDTO;
+import bank.dto.TransferMoneyDTO;
 import bank.service.TransactionService;
 import bank.service.impl.TransactionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,8 +42,13 @@ public class TransactionResource {
         return transactionService.readAll();
     }
 
-    @GetMapping(value = "/all")
+    @GetMapping("/all")
     public List<TransactionDTO> getAll() {
         return transactionService.getAll();
+    }
+
+    @PostMapping("/transfer-money")
+    public TransactionDTO transfer(final @Validated @RequestBody TransferMoneyDTO transferMoneyDTO) {
+        return transactionService.transfer(transferMoneyDTO);
     }
 }

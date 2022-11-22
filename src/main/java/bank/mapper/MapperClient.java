@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MapperClient {
-    public ClientDTO toDTO(Client client){
+    public ClientDTO toDto(final Client client){
         final ClientDTO dto = new ClientDTO();
         dto.setId(client.getId());
         dto.setFullName(client.getFullName());
@@ -15,7 +15,7 @@ public class MapperClient {
         return dto;
     }
 
-    public Client toEntity(ClientDTO dto){
+    public Client toEntity(final ClientDTO dto){
         final Client client = new Client();
         client.setId(dto.getId());
         client.setFullName(dto.getFullName());

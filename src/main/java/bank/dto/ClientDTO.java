@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
@@ -16,7 +15,6 @@ public class ClientDTO {
     private String fullName;
     @Email
     private String email;
-    @NotNull
     private Long id;
     @NotBlank
     private String phoneNumber;
