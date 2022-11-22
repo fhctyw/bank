@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -21,6 +20,8 @@ public class CreditDTO {
     private BigDecimal amount;
     @NotNull
     private int percent;
+    @NotNull
     private LocalDateTime firstDate;
+    @NotNull
     private LocalDateTime secondDate;
 }

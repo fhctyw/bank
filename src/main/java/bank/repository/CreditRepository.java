@@ -27,6 +27,10 @@ public class CreditRepository {
     private Long id = 0L;
 
 
+    public List<Credit> getAll(){
+        return credits;
+    }
+
     public Long getId() {
         return id;
     }
@@ -69,7 +73,7 @@ public class CreditRepository {
         creditFinal.setPercent(credit.getPercent());
         creditFinal.setAmount(credit.getAmount());
         creditFinal.setIdClient(credit.getIdClient());
-        creditFinal.setFirstDate(credit.getFirstDate());
+        creditFinal.setFirstDate(LocalDateTime.now());
         creditFinal.setSecondDate(credit.getSecondDate());
         credits.add(creditFinal);
     }

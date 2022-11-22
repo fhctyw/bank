@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/credit")
 public class CreditResource {
@@ -35,5 +37,9 @@ public class CreditResource {
     public CreditDTO delete(final @RequestBody Long id){
         return creditService.delete(id);
     }
+
+    @GetMapping(value = "/all")
+    public List<CreditDTO> getAll(){return creditService.getAll();}
+
 
 }

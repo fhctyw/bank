@@ -8,6 +8,9 @@ import bank.service.CreditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class CreditServiceImpl implements CreditService {
     @Autowired
@@ -45,5 +48,11 @@ public class CreditServiceImpl implements CreditService {
         creditRepository.deleteCredit(id);
         return null;
     }
+
+    @Override
+    public List<CreditDTO> getAll(){
+        return creditRepository.getAll().stream().map(mapperCredit::toDTO).collect(Collectors.toList());
+    }
+
 
 }
