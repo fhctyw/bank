@@ -6,9 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 @Data
 @AllArgsConstructor
