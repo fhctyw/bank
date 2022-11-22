@@ -1,7 +1,6 @@
 package bank.resource;
 
 import bank.dto.DepositDTO;
-import bank.dto.TransactionDTO;
 import bank.service.DepositService;
 import bank.service.impl.DepositServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +37,10 @@ public class DepositResource {
         final DepositDTO depositDTO = get(id);
         depositService.delete(id);
         return ResponseEntity.ok(depositDTO);
+    }
+
+    @GetMapping(value = "/all")
+    public List<DepositDTO> getAll() {
+        return depositService.getAll();
     }
 }

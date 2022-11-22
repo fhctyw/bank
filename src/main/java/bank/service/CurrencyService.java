@@ -2,10 +2,12 @@ package bank.service;
 
 import bank.dto.CurrencyDTO;
 
+import java.util.List;
+
 public interface CurrencyService {
-    void create(CurrencyDTO dto);
+    CurrencyDTO create(CurrencyDTO dto);
     CurrencyDTO read(String code);
-    void update(CurrencyDTO dto);
-    void delete(String code);
-    void getCurrencies();
+    CurrencyDTO update(CurrencyDTO dto);
+    CurrencyDTO delete(String code);
+    List<CurrencyDTO> getAll();
 }

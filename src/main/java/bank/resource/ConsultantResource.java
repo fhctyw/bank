@@ -5,6 +5,7 @@ import bank.service.ConsultantService;
 import bank.service.impl.ConsultantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,12 +17,12 @@ public class ConsultantResource {
     private final ConsultantService consultantService = new ConsultantServiceImpl();
 
     @PostMapping
-    public ConsultantDTO create(final @RequestBody ConsultantDTO consultantDto) {
+    public ConsultantDTO create(final @Validated @RequestBody ConsultantDTO consultantDto) {
         return consultantService.create(consultantDto);
     }
 
     @PutMapping
-    public ConsultantDTO put(final @RequestBody ConsultantDTO consultantDto) {
+    public ConsultantDTO put(final @Validated @RequestBody ConsultantDTO consultantDto) {
         return consultantService.update(consultantDto);
     }
 

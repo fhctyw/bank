@@ -11,7 +11,7 @@ public class MapperTransaction {
         dto.setId(transaction.getId());
         dto.setTime(transaction.getTime());
         dto.setMessage(transaction.getMessage());
-        dto.setAmountOfTransaction(transaction.getAmountOfTransaction());
+        dto.setAmount(transaction.getAmount());
         dto.setIdSender(transaction.getIdSender());
         dto.setIdReceiver(transaction.getIdReceiver());
         return dto;
@@ -21,7 +21,7 @@ public class MapperTransaction {
         transaction.setId(dto.getId());
         transaction.setTime(dto.getTime());
         transaction.setMessage(dto.getMessage());
-        transaction.setAmountOfTransaction(dto.getAmountOfTransaction());
+        transaction.setAmount(dto.getAmount());
         transaction.setIdSender(dto.getIdSender());
         transaction.setIdReceiver(dto.getIdReceiver());
         return transaction;

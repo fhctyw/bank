@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -14,11 +15,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DepositDTO {
-    @NotBlank
-    private String client;
+    @NotNull
+    @Positive
     private BigDecimal amount;
     @NotNull
-    private Long depositId;
+    private Long Id;
     @NotNull
     private Long cardId;
     @NotNull

@@ -9,6 +9,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
@@ -19,26 +23,33 @@ public class AccountServiceImpl implements AccountService {
     final AccountRepository accountRepository = new AccountRepository();
 
     @Override
-    public void create(final AccountDTO dto) {
-        final Account account = mapperAccount.toEntity(dto);
-        accountRepository.add(account);
+    public AccountDTO create(final AccountDTO dto) {
+        accountRepository.add(mapperAccount.toEntity(dto));
+        final Account accountInRepos = accountRepository.getAccounts().get(accountRepository.getAccounts().size() - 1);
+        return mapperAccount.toDto(accountInRepos);
     }
 
     @Override
-    public AccountDTO read(final Long id) { ///  idClient
-        final Account account = accountRepository.get(id);
-        final AccountDTO dto = mapperAccount.toDTO(account);
-        return dto;
+    public AccountDTO read(final UUID id) {
+        return mapperAccount.toDto(accountRepository.findById(id));
     }
 
     @Override
-    public void update(final AccountDTO dto) {
-        accountRepository.update(dto.getIdClient(), dto);
+    public AccountDTO update(final AccountDTO dto) {
+        accountRepository.update(dto.getId(), dto);
+        return mapperAccount.toDto(accountRepository.findById(dto.getId()));
     }
 
     @Override
-    public void delete(final Long id) { ///idClient
-        accountRepository.deleteByClientId(id);
+    public AccountDTO delete(final UUID id) {
+        final Account account = accountRepository.findById(id);
+        accountRepository.delete(id);
+        return mapperAccount.toDto(account);
+    }
+
+    @Override
+    public List<AccountDTO> getAll() {
+        return accountRepository.getAccounts().stream().map(mapperAccount::toDto).collect(Collectors.toList());
     }
 
 }

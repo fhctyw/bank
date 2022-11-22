@@ -12,10 +12,14 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CurrencyDTO {
-    @NotBlank
-    private String code;
+public class TransferMoneyDTO {
+    @NotNull
+    private Long numberCardSender;
+    @NotNull
+    private Long numberCardReceiver;
     @NotNull
     @Positive
-    private BigDecimal value;
+    private BigDecimal amount;
+    @NotBlank
+    private String message;
 }
