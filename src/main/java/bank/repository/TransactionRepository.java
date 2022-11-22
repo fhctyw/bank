@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -74,7 +75,7 @@ public class TransactionRepository {
     public void add(final Transaction transaction) {
         final Transaction finalTransaction = new Transaction();
         finalTransaction.setId(++id);
-        finalTransaction.setTime(transaction.getTime());
+        finalTransaction.setTime(LocalDateTime.now());
         finalTransaction.setAmount(transaction.getAmount());
         finalTransaction.setIdSender(transaction.getIdSender());
         finalTransaction.setIdReceiver(transaction.getIdReceiver());
@@ -91,7 +92,6 @@ public class TransactionRepository {
         update.setIdReceiver(dto.getIdReceiver());
         update.setMessage(dto.getMessage());
     }
-
     public Transaction get(final Long id) {
         return findById(id);
     }
@@ -100,7 +100,6 @@ public class TransactionRepository {
         return transactions.stream().filter(e -> e.getId().equals(id)).findFirst()
                 .orElseThrow(() -> new ServiceException("No such id when finding"));
     }
-
     public void set(final Long id, final Transaction transaction) {
         final Transaction newTrans = findById(id);
         newTrans.setIdSender(transaction.getIdSender());
