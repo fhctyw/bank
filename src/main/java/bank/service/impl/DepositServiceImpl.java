@@ -37,13 +37,14 @@ public class DepositServiceImpl implements DepositService {
 
     @Override
     public void update(final DepositDTO dto) {
-        depositRepository.setDeposit(dto.getDepositId(), mapperDeposit.toEntity(dto));
+        depositRepository.setDeposit(dto.getId(), mapperDeposit.toEntity(dto));
     }
 
     @Override
     public void delete(final Long id) {
         depositRepository.deleteDeposit(id);
     }
+
     @Override
     public List<DepositDTO> getAll() {
         return depositRepository.getDeposits().stream().map(mapperDeposit::toDTO).collect(Collectors.toList());
