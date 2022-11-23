@@ -10,6 +10,7 @@ import bank.exception.TransferNotEnoughMoneyException;
 import bank.mapper.MapperTransaction;
 import bank.repository.TransactionRepository;
 import bank.service.TransactionService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
     @Autowired
     private final MapperTransaction mapperTransaction;
@@ -109,10 +111,10 @@ public class TransactionServiceImpl implements TransactionService {
         final BigDecimal currencyReceiver = currencyService.read(accountReceiverDTO.getCodeCurrency()).getValue();
         final BigDecimal currencySender = currencyService.read(accountSenderDTO.getCodeCurrency()).getValue();
 
-        final BigDecimal c = currencyReceiver.divide(currencySender, MathContext.DECIMAL128);
+        final BigDecimal ratioCurrency = currencyReceiver.divide(currencySender, MathContext.DECIMAL128);
 
-        receiverCard.setAmount(receiverCard.getAmount().add(dto.getAmount().multiply(c)));
-        accountReceiverDTO.setAmount(accountReceiverDTO.getAmount().add(dto.getAmount().multiply(c)));
+        receiverCard.setAmount(receiverCard.getAmount().add(dto.getAmount().multiply(ratioCurrency)));
+        accountReceiverDTO.setAmount(accountReceiverDTO.getAmount().add(dto.getAmount().multiply(ratioCurrency)));
 
         accountService.update(accountReceiverDTO);
         cardService.update(receiverCard);
