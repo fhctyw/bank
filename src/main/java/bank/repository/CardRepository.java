@@ -1,6 +1,7 @@
 package bank.repository;
 
 
+import bank.dto.MakeCardDTO;
 import bank.entity.Card;
 import bank.exception.ServiceException;
 import bank.util.JacksonUtil;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,6 +21,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Component
@@ -121,6 +124,4 @@ public class CardRepository {
     public void deleteCard(final Long id) {
         setCards(cards.stream().filter(e -> !e.getId().equals(id)).collect(Collectors.toList()));
     }
-
-
 }
