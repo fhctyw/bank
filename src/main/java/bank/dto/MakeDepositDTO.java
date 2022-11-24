@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MakeDepositDTO {
-    @NotNull
     @Positive
     private BigDecimal amount;
     @NotNull

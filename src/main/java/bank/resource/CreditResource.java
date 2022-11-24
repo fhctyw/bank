@@ -1,6 +1,7 @@
 package bank.resource;
 
 
+import bank.dto.CardDTO;
 import bank.dto.CreditDTO;
 import bank.dto.PayCreditDTO;
 import bank.service.CreditService;
@@ -45,7 +46,7 @@ public class CreditResource {
     }
 
     @PostMapping(value = "/pay-credit")
-    public CreditDTO payCredit(final @Validated @RequestBody PayCreditDTO creditDTO) {
+    public CardDTO payCredit(final @Validated @RequestBody PayCreditDTO creditDTO) {
         return creditService.payCredit(creditDTO);
     }
 }
