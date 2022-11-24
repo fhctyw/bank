@@ -1,8 +1,11 @@
 package bank.service.impl;
 
+import bank.dto.AccountDTO;
+import bank.dto.CardDTO;
 import bank.dto.DepositDTO;
+import bank.dto.MakeDepositDTO;
 import bank.entity.Deposit;
-import bank.exception.InvalidDeposit;
+import bank.exception.InvalidDepositException;
 import bank.mapper.MapperDeposit;
 import bank.repository.DepositRepository;
 import bank.service.DepositService;
@@ -10,11 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,10 +26,18 @@ public class DepositServiceImpl implements DepositService {
     @Autowired
     final DepositRepository depositRepository = new DepositRepository();
 
+    @Autowired
+    final CardServiceImpl cardService = new CardServiceImpl();
+
+    @Autowired
+    final AccountServiceImpl accountService = new AccountServiceImpl();
+
     @Override
-    public void create(DepositDTO dto) {
-        final Deposit deposit = mapperDeposit.toEntity(dto);
+    public DepositDTO create(DepositDTO dto) {
+        Deposit deposit = mapperDeposit.toEntity(dto);
         depositRepository.add(deposit);
+        deposit = depositRepository.findById(depositRepository.getId());
+        return mapperDeposit.toDTO(deposit);
     }
 
     @Override
@@ -55,26 +62,29 @@ public class DepositServiceImpl implements DepositService {
         return depositRepository.getDeposits().stream().map(mapperDeposit::toDTO).collect(Collectors.toList());
     }
 
-//    public double percentage() {
-//        final DepositDTO dto = new DepositDTO();
-//        final BigDecimal p;
-//        final double percentage;
-//        if (dto.getPercentage() == 0.0) {
-//            InvalidDeposit depositError = new InvalidDeposit("Invalid percentage");
-//        } else {
-//            p = BigDecimal.valueOf(dto.getPercentage()).multiply(dto.getAmount());
-//            dto.setAmount(p);
-//
-//        }
-//        return
-//    }
+    @Override
+    public DepositDTO putDeposit(final MakeDepositDTO dto) {
+        final CardDTO cardDTO = cardService.getByNumber(dto.getCardNumber());
+        if (cardDTO.getAmount().compareTo(dto.getAmount()) < 0) {
+            throw new InvalidDepositException("Not enough money for deposit");
+        }
+        final AccountDTO accountDTO = accountService.read(cardDTO.getIdAccount());
 
-//    public DepositDTO putDeposit(final DepositDTO dto) {
-//
-//        if (dto.getAmount().signum() <= 0) {
-//            InvalidDeposit depositError = new InvalidDeposit("Invalid Deposit Amount");
-//            System.out.println(depositError.getMessage());
-//        } else {
-//        }
-//    }
+        cardDTO.setAmount(cardDTO.getAmount().subtract(dto.getAmount()));
+        accountDTO.setAmount(accountDTO.getAmount().subtract(dto.getAmount()));
+
+        accountService.update(accountDTO);
+        cardService.update(cardDTO);
+
+        DepositDTO depositDTO = new DepositDTO();
+        depositDTO.setAmount(dto.getAmount());
+        depositDTO.setPutTime(dto.getPutTime());
+        depositDTO.setWithdrawTime(dto.getWithdrawTime());
+        depositDTO.setPercentage(dto.getPercentage());
+        depositDTO.setCardId(cardDTO.getId());
+
+        depositDTO = create(depositDTO);
+
+        return depositDTO;
+    }
 }

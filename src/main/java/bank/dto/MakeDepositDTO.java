@@ -13,14 +13,11 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DepositDTO {
-    @NotNull
+public class MakeDepositDTO {
     @Positive
     private BigDecimal amount;
     @NotNull
-    private Long Id;
-    @NotNull
-    private Long cardId;
+    private Long cardNumber;
     @NotNull
     private LocalDateTime putTime;
     @NotNull

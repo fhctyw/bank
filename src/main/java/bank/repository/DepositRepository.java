@@ -78,11 +78,9 @@ public class DepositRepository {
 
     public void add(final Deposit deposit) {
         final Deposit finalDeposit = new Deposit();
-        finalDeposit.setBalance(deposit.getBalance());
         finalDeposit.setAmount(deposit.getAmount());
         finalDeposit.setId(++id);
         finalDeposit.setCardId(deposit.getCardId());
-        finalDeposit.setConsultantId(deposit.getConsultantId());
         finalDeposit.setPutTime(deposit.getPutTime());
         finalDeposit.setWithdrawTime(deposit.getWithdrawTime());
         finalDeposit.setPercentage(deposit.getPercentage());
@@ -91,11 +89,9 @@ public class DepositRepository {
 
     public void update(final Long id, final DepositDTO dto) {
         final Deposit update = findById(id);
-        update.setBalance(dto.getBalance());
         update.setAmount(dto.getAmount());
         update.setId(dto.getId());
         update.setCardId(dto.getCardId());
-        update.setConsultantId(dto.getConsultantId());
         update.setPutTime(dto.getPutTime());
         update.setWithdrawTime(dto.getWithdrawTime());
         update.setPercentage(dto.getPercentage());
@@ -114,11 +110,9 @@ public class DepositRepository {
 
     public void setDeposit(final Long id, final Deposit deposit) {
         final Deposit c = findById(id);
-        c.setBalance(deposit.getBalance());
         c.setAmount(deposit.getAmount());
         c.setId(deposit.getId());
         c.setCardId(deposit.getCardId());
-        c.setConsultantId(deposit.getConsultantId());
         c.setPutTime(deposit.getPutTime());
         c.setWithdrawTime(deposit.getWithdrawTime());
         c.setPercentage(deposit.getPercentage());

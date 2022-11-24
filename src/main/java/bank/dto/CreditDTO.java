@@ -6,25 +6,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DepositDTO {
+public class CreditDTO {
+    private Long id;
     @NotNull
-    @Positive
+    private Long idClient;
+    @NotNull
     private BigDecimal amount;
     @NotNull
-    private Long Id;
-    @NotNull
-    private Long cardId;
-    @NotNull
-    private LocalDateTime putTime;
-    @NotNull
-    private LocalDateTime withdrawTime;
+    private Long cardNumber;
     @Percentage
-    private double percentage;
+    private double percent;
+    @NotNull
+    private LocalDateTime createTime;
+    @NotNull
+    private LocalDateTime payTime;
 }

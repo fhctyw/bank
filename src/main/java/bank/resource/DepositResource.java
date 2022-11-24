@@ -1,10 +1,12 @@
 package bank.resource;
 
 import bank.dto.DepositDTO;
+import bank.dto.MakeDepositDTO;
 import bank.service.DepositService;
 import bank.service.impl.DepositServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,5 +44,10 @@ public class DepositResource {
     @GetMapping(value = "/all")
     public List<DepositDTO> getAll() {
         return depositService.getAll();
+    }
+
+    @PostMapping(value = "/make-deposit")
+    public DepositDTO makeDeposit(final @Validated @RequestBody MakeDepositDTO depositDTO) {
+        return depositService.putDeposit(depositDTO);
     }
 }
