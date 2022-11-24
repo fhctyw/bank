@@ -1,9 +1,6 @@
 package bank.service.impl;
 
-import bank.dto.AccountDTO;
-import bank.dto.CardDTO;
-import bank.dto.CreditDTO;
-import bank.dto.PayCreditDTO;
+import bank.dto.*;
 import bank.entity.Credit;
 import bank.exception.InvalidPayCreditException;
 import bank.mapper.MapperCredit;
@@ -56,14 +53,38 @@ public class CreditServiceImpl implements CreditService {
 
     @Override
     public CreditDTO delete(final Long id) {
+        final CreditDTO creditDTO = mapperCredit.toDTO(creditRepository.findById(id));
         creditRepository.deleteCredit(id);
-        return null;
+        return creditDTO;
     }
 
     @Override
     public List<CreditDTO> getAll() {
         return creditRepository.getAll().stream().map(mapperCredit::toDTO).collect(Collectors.toList());
     }
+
+    @Override
+    public MakeCreditResponseDTO makeCredit(final MakeCreditDTO makeCreditDTO) {
+        final CardDTO cardDTO = cardService.read(makeCreditDTO.getIdCard());
+        final AccountDTO accountDTO = accountService.read(cardDTO.getIdAccount());
+
+        accountDTO.setAmount(accountDTO.getAmount().add(makeCreditDTO.getAmount()));
+        cardDTO.setAmount(cardDTO.getAmount().add(makeCreditDTO.getAmount()));
+
+        cardService.update(cardDTO);
+        accountService.update(accountDTO);
+
+        final CreditDTO creditDTO = new CreditDTO();
+        creditDTO.setCardNumber(cardDTO.getCardNumber());
+        creditDTO.setIdClient(cardDTO.getIdClient());
+        creditDTO.setAmount(makeCreditDTO.getAmount());
+        creditDTO.setPercent(makeCreditDTO.getPercent());
+        creditDTO.setCreateTime(LocalDateTime.now());
+        creditDTO.setPayTime(makeCreditDTO.getPayTime());
+
+        return new MakeCreditResponseDTO(create(creditDTO), cardDTO);
+    }
+
 
     @Override
     public CardDTO payCredit(final PayCreditDTO dto) {

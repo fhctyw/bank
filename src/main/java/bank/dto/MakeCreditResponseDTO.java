@@ -13,5 +13,5 @@ public class MakeCreditResponseDTO {
     @NotNull
     private CreditDTO creditDTO;
     @NotNull
-    private ConsultantDTO consultantDTO;
+    private CardDTO cardDTO;
 }
