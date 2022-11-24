@@ -6,25 +6,22 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Credit {
-
+    private Long idConsultant;
     private Long id;
     private Long idClient;
     private BigDecimal amount;
     private int percent;
-    private LocalDateTime firstDate;
-    private LocalDateTime secondDate;
+    private LocalDateTime createDate;
+    private LocalDateTime deadlineDate;
 
     @Override
     public String toString() {
-        return id + " " + idClient + " " + amount + " " + percent +
-                " " + firstDate + " " + secondDate;
+        return id + " " + idConsultant + " " + idClient + " " + amount + " " + percent +
+                " " + createDate + " " + deadlineDate;
     }
 }

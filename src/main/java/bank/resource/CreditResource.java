@@ -2,6 +2,7 @@ package bank.resource;
 
 
 import bank.dto.CreditDTO;
+import bank.dto.MakeCreditResponseDTO;
 import bank.service.CreditService;
 import bank.service.impl.CreditServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,11 @@ public class CreditResource {
 
     @GetMapping(value = "/all")
     public List<CreditDTO> getAll(){return creditService.getAll();}
+
+    @PostMapping("/make-credit")
+    public MakeCreditResponseDTO makeCredit(MakeCreditDTO ){
+
+    }
 
 
 }

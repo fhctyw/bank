@@ -11,6 +11,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Card {
+
     private Long id;
     private UUID idAccount;
     private BigDecimal amount;

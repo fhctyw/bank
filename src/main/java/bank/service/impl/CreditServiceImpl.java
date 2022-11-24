@@ -40,19 +40,22 @@ public class CreditServiceImpl implements CreditService {
     @Override
     public CreditDTO update(final CreditDTO dto){
         creditRepository.setCredits(dto.getId(), mapperCredit.toEntity(dto));
-        return dto;
+        return mapperCredit.toDTO(creditRepository.findById(dto.getId()));
     }
 
     @Override
     public CreditDTO delete(final Long id){
+        CreditDTO dto = mapperCredit.toDTO(creditRepository.findById(id));
         creditRepository.deleteCredit(id);
-        return null;
+        return dto;
     }
 
     @Override
     public List<CreditDTO> getAll(){
         return creditRepository.getAll().stream().map(mapperCredit::toDTO).collect(Collectors.toList());
     }
+
+
 
 
 }
