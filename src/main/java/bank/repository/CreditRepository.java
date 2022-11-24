@@ -70,11 +70,12 @@ public class CreditRepository {
     public void add(final Credit credit) {
         final Credit creditFinal = new Credit();
         creditFinal.setId(++id);
-        creditFinal.setPercent(credit.getPercent());
-        creditFinal.setAmount(credit.getAmount());
         creditFinal.setIdClient(credit.getIdClient());
-        creditFinal.setFirstDate(LocalDateTime.now());
-        creditFinal.setSecondDate(credit.getSecondDate());
+        creditFinal.setAmount(credit.getAmount());
+        creditFinal.setCardNumber(credit.getCardNumber());
+        creditFinal.setPercent(credit.getPercent());
+        creditFinal.setCreateTime(credit.getCreateTime());
+        creditFinal.setPayTime(credit.getPayTime());
         credits.add(creditFinal);
     }
 

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Calendar;
@@ -18,13 +19,8 @@ public class Credit {
     private Long id;
     private Long idClient;
     private BigDecimal amount;
-    private int percent;
-    private LocalDateTime firstDate;
-    private LocalDateTime secondDate;
-
-    @Override
-    public String toString() {
-        return id + " " + idClient + " " + amount + " " + percent +
-                " " + firstDate + " " + secondDate;
-    }
+    private Long cardNumber;
+    private double percent;
+    private LocalDateTime createTime;
+    private LocalDateTime payTime;
 }

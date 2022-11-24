@@ -1,5 +1,6 @@
 package bank.dto;
 
+import jdk.jfr.Percentage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,16 +13,17 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreditDTO {
-    @NotNull
     private Long id;
     @NotNull
     private Long idClient;
     @NotNull
     private BigDecimal amount;
     @NotNull
-    private int percent;
+    private Long cardNumber;
+    @Percentage
+    private double percent;
     @NotNull
-    private LocalDateTime firstDate;
+    private LocalDateTime createTime;
     @NotNull
-    private LocalDateTime secondDate;
+    private LocalDateTime payTime;
 }

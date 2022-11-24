@@ -2,10 +2,11 @@ package bank.resource;
 
 
 import bank.dto.CreditDTO;
+import bank.dto.PayCreditDTO;
 import bank.service.CreditService;
 import bank.service.impl.CreditServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,28 +19,33 @@ public class CreditResource {
     private final CreditService creditService = new CreditServiceImpl();
 
     @PostMapping
-    public CreditDTO create(final @RequestBody CreditDTO creditDTO){
+    public CreditDTO create(final @RequestBody CreditDTO creditDTO) {
         final CreditDTO dto = creditService.create(creditDTO);
         return dto;
     }
 
     @PutMapping
-    public CreditDTO put(final @RequestBody CreditDTO dto){
+    public CreditDTO put(final @RequestBody CreditDTO dto) {
         return creditService.update(dto);
     }
 
     @GetMapping
-    public CreditDTO get(final @RequestBody Long id){
+    public CreditDTO get(final @RequestBody Long id) {
         return creditService.read(id);
     }
 
     @DeleteMapping
-    public CreditDTO delete(final @RequestBody Long id){
+    public CreditDTO delete(final @RequestBody Long id) {
         return creditService.delete(id);
     }
 
     @GetMapping(value = "/all")
-    public List<CreditDTO> getAll(){return creditService.getAll();}
+    public List<CreditDTO> getAll() {
+        return creditService.getAll();
+    }
 
-
+    @PostMapping(value = "/pay-credit")
+    public CreditDTO payCredit(final @Validated @RequestBody PayCreditDTO creditDTO) {
+        return creditService.payCredit(creditDTO);
+    }
 }
