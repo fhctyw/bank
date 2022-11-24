@@ -55,4 +55,6 @@ public class CardServiceImpl implements CardService {
     public CardDTO getByNumber(final Long number) {
         return mapperCard.toDto(cardRepository.findByNumber(number));
     }
+
+
 }

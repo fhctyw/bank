@@ -7,7 +7,7 @@ import bank.repository.ClientRepository;
 import bank.service.AccountService;
 import bank.service.CardService;
 import bank.service.ClientService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,21 +17,27 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ClientServiceImpl implements ClientService {
 
     @Autowired
-    final MapperClient mapperClient = new MapperClient();
+    private final MapperClient mapperClient;
 
     @Autowired
-    final ClientRepository clientRepository = new ClientRepository();
+    private final ClientRepository clientRepository;
 
     @Autowired
-    final CardService cardService = new CardServiceImpl();
+    private final CardService cardService;
 
     @Autowired
-    final AccountService accountService = new AccountServiceImpl();
+    private final AccountService accountService;
 
+    public ClientServiceImpl() {
+        mapperClient = new MapperClient();
+        clientRepository = new ClientRepository();
+        cardService = new CardServiceImpl();
+        accountService = new AccountServiceImpl();
+    }
 
     @Override
     public ClientDTO create(final ClientDTO dto) {
@@ -87,7 +93,7 @@ public class ClientServiceImpl implements ClientService {
         cardDTO.setAmount(BigDecimal.ZERO);
         cardDTO.setIdClient(clientDTO.getId());
         cardDTO.setIdAccount(accountDTO.getId());
-        cardDTO.setCardNumber(new Random().nextLong(0, 9999999999999999L));
+        cardDTO.setCardNumber(new Random().nextLong(1000000000000000L, 9999999999999999L));
 
         cardDTO = cardService.create(cardDTO);
 

@@ -13,18 +13,17 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreditDTO {
-    @NotNull
-    private Long idConsultant;
-    @NotNull
     private Long id;
     @NotNull
     private Long idClient;
     @NotNull
     private BigDecimal amount;
+    @NotNull
+    private Long cardNumber;
     @Percentage
-    private int percent;
+    private double percent;
     @NotNull
-    private LocalDateTime createDate;
+    private LocalDateTime createTime;
     @NotNull
-    private LocalDateTime deadlineDate;
+    private LocalDateTime payTime;
 }

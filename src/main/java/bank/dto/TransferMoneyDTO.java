@@ -17,7 +17,6 @@ public class TransferMoneyDTO {
     private Long numberCardSender;
     @NotNull
     private Long numberCardReceiver;
-    @NotNull
     @Positive
     private BigDecimal amount;
     @NotBlank

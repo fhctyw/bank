@@ -1,6 +1,8 @@
 package bank.service;
 
+import bank.dto.CardDTO;
 import bank.dto.CreditDTO;
+import bank.dto.PayCreditDTO;
 
 import java.util.List;
 
@@ -11,4 +13,5 @@ public interface CreditService {
     CreditDTO delete(Long id);
     void getCredit();
     List<CreditDTO> getAll();
+    CardDTO payCredit(PayCreditDTO creditDTO);
 }

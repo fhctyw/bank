@@ -15,6 +15,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @Component
@@ -68,11 +70,12 @@ public class CreditRepository {
     public void add(final Credit credit) {
         final Credit creditFinal = new Credit();
         creditFinal.setId(++id);
-        creditFinal.setPercent(credit.getPercent());
-        creditFinal.setAmount(credit.getAmount());
         creditFinal.setIdClient(credit.getIdClient());
-        creditFinal.setFirstDate(LocalDateTime.now());
-        creditFinal.setDeadlineDate(credit.getDeadlineDate());
+        creditFinal.setAmount(credit.getAmount());
+        creditFinal.setCardNumber(credit.getCardNumber());
+        creditFinal.setPercent(credit.getPercent());
+        creditFinal.setCreateTime(credit.getCreateTime());
+        creditFinal.setPayTime(credit.getPayTime());
         credits.add(creditFinal);
     }
 
