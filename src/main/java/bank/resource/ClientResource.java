@@ -31,13 +31,13 @@ public class ClientResource {
         return ResponseEntity.ok(clientDTO);
     }
 
-    @GetMapping
-    public ClientDTO get(final @RequestBody Long id) {
+    @GetMapping("/{id}")
+    public ClientDTO get(final @PathVariable Long id) {
         return clientService.read(id);
     }
 
-    @DeleteMapping
-    public ResponseEntity<ClientDTO> delete(final @RequestBody Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ClientDTO> delete(final @PathVariable Long id) {
         final ClientDTO clientDTO = get(id);
         clientService.delete(id);
         return ResponseEntity.ok(clientDTO);

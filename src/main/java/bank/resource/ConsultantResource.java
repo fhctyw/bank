@@ -26,13 +26,13 @@ public class ConsultantResource {
         return consultantService.update(consultantDto);
     }
 
-    @GetMapping
-    public ConsultantDTO get(final @RequestBody Long id) {
+    @GetMapping("/{id}")
+    public ConsultantDTO get(final @PathVariable Long id) {
         return consultantService.read(id);
     }
 
-    @DeleteMapping
-    public ConsultantDTO delete(final @RequestBody Long id) {
+    @DeleteMapping("/{id}")
+    public ConsultantDTO delete(final @PathVariable Long id) {
         return consultantService.delete(id);
     }
 

@@ -1,25 +1,27 @@
 package bank.dto;
 
-import bank.annotations.CodeCurrency;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class AccountDTO {
-    private UUID id;
+@NoArgsConstructor
+public class CreditDTO {
+    @NotNull
+    private Long id;
     @NotNull
     private Long idClient;
-    @CodeCurrency
-    private String codeCurrency;
-    @Positive
+    @NotNull
     private BigDecimal amount;
-
+    @NotNull
+    private int percent;
+    @NotNull
+    private LocalDateTime firstDate;
+    @NotNull
+    private LocalDateTime secondDate;
 }
