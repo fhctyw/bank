@@ -9,11 +9,13 @@ import bank.entity.Card;
 import bank.entity.Client;
 import bank.exception.ServiceException;
 import bank.mapper.MapperCard;
+import bank.mapper.MapperClient;
 import bank.repository.CardRepository;
 import bank.repository.ClientRepository;
 import bank.service.AccountService;
 import bank.service.CardService;
 import bank.service.ClientService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,18 +26,17 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class CardServiceImpl implements CardService {
 
     @Autowired
-    final MapperCard mapperCard = new MapperCard();
+    private final MapperCard mapperCard;
     @Autowired
-    final CardRepository cardRepository = new CardRepository();
+    private final CardRepository cardRepository ;
     @Autowired
-    final AccountService accountService = new AccountServiceImpl();
+    private  final AccountService accountService;
     @Autowired
-    final ClientRepository clientRepository = new ClientRepository();
-
-
+    private  final ClientRepository clientRepository ;
 
     @Override
     public CardDTO create(final CardDTO dto) {
@@ -44,11 +45,17 @@ public class CardServiceImpl implements CardService {
         card = cardRepository.findById(cardRepository.getId());
         return mapperCard.toDto(card);
     }
+    public CardServiceImpl() {
+        mapperCard = new MapperCard();
+        cardRepository = new CardRepository();
+        accountService = new AccountServiceImpl();
+        clientRepository = new ClientRepository();
+    }
 
     @Override
     public MakeCardResponseDTO createCard(MakeCardDTO dto) {// client  codeCurrency CardDTO
         AccountDTO accountDTO = new AccountDTO();
-        clientRepository.getClients().stream().filter(e->e.getId().equals(dto.getIdClient())).findFirst().orElseThrow(()->new ServiceException("No such Client id"));
+        clientRepository.findById(dto.getIdClient());
 
         if(accountService.getAll().stream().anyMatch(e -> e.getIdClient().equals(dto.getIdClient()))) {
             if( accountService.getAll().stream().anyMatch(e -> e.getCodeCurrency().equals(dto.getCodeCurrency()))) {

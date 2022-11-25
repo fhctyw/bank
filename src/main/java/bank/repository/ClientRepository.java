@@ -85,7 +85,7 @@ public class ClientRepository {
         return clients.stream()
                 .filter(e -> e.getId().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new ServiceException("No such id when finding"));
+                .orElseThrow(() -> new ServiceException("No such Client id when finding"));
     }
 
     public void setClient(final Long id, final Client client) {

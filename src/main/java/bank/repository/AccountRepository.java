@@ -72,6 +72,21 @@ public class AccountRepository {
                 .orElseThrow(() -> new ServiceException("No such id when finding"));
     }
 
+    public Account findByClientId(final Long idClient) {
+        return accounts
+                .stream()
+                .filter(e -> e.getIdClient().equals(idClient))
+                .findFirst()
+                .orElseThrow(() -> new ServiceException("No Account was found with this Client id:"+idClient));
+    }
+    public Account findByCurrencyCode(final String currencyCode) {
+        return accounts
+                .stream()
+                .filter(e -> e.getCodeCurrency().equals(currencyCode))
+                .findFirst()
+                .orElseThrow(() -> new ServiceException("No Account was found with this currency code:"+currencyCode));
+    }
+
     //    public Account get(final Long id) {
 //        return findById(id);
 //    }
