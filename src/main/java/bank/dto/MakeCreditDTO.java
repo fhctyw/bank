@@ -1,5 +1,6 @@
 package bank.dto;
 
+import jdk.jfr.Percentage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,22 +8,19 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
-import java.util.UUID;
+import java.time.LocalDateTime;
+
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class CardDTO {
-    private Long id;
+@NoArgsConstructor
+public class MakeCreditDTO {
     @NotNull
-    private UUID idAccount;
-    @NotNull
+    private Long idCard;
     @Positive
     private BigDecimal amount;
+    @Percentage
+    private double percent;
     @NotNull
-    @Positive
-    private Long cardNumber;
-    @NotNull
-    private Long idClient;
-
+    private LocalDateTime payTime;
 }

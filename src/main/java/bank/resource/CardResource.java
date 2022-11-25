@@ -1,6 +1,8 @@
 package bank.resource;
 
 import bank.dto.CardDTO;
+import bank.dto.MakeCardDTO;
+import bank.dto.MakeCardResponseDTO;
 import bank.service.CardService;
 import bank.service.impl.CardServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,11 @@ public class CardResource {
     public String create(final @Validated @RequestBody CardDTO cardDTO) {
         cardService.create(cardDTO);
         return "All good";
+    }
+
+    @PostMapping("/create")
+    public MakeCardResponseDTO createCard(final @Validated @RequestBody MakeCardDTO makeCardDTO) {
+        return cardService.createCard(makeCardDTO);
     }
 
     @PutMapping
