@@ -5,6 +5,7 @@ import bank.dto.CardDTO;
 import bank.dto.TransactionDTO;
 import bank.dto.TransferMoneyDTO;
 import bank.entity.Transaction;
+import bank.exception.NoTransactionsException;
 import bank.exception.ServiceException;
 import bank.exception.TransferNotEnoughMoneyException;
 import bank.exception.TransferSelfTransactionException;
@@ -83,9 +84,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<TransactionDTO> readClient(final Long id) {
-        final List<Transaction> list = new ArrayList<>(
-                transactionRepository.getTransactions().stream().filter(e -> e.getIdSender().equals(id) || e.getIdReceiver().equals(id)).toList());
-        list.stream().findFirst().orElseThrow(() -> new ServiceException("No such id when finding"));
+        final List<Transaction> list = transactionRepository.getTransactions().stream().filter(e -> e.getIdSender().equals(id) || e.getIdReceiver().equals(id)).toList();
+        list.stream().findFirst().orElseThrow(() -> new NoTransactionsException("No transaction was found"));
         return list.stream().map(mapperTransaction::toDto).collect(Collectors.toList());
     }
 
