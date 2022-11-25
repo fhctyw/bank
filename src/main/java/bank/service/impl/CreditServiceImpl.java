@@ -1,11 +1,14 @@
 package bank.service.impl;
 
 import bank.dto.*;
+import bank.entity.Client;
 import bank.entity.Credit;
+import bank.exception.InvalidMakeCreditException;
 import bank.exception.InvalidPayCreditException;
 import bank.mapper.MapperCredit;
 import bank.repository.CreditRepository;
 import bank.service.CreditService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,17 +18,25 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class CreditServiceImpl implements CreditService {
     @Autowired
-    final MapperCredit mapperCredit = new MapperCredit();
+    final MapperCredit mapperCredit;
     @Autowired
-    final CreditRepository creditRepository = new CreditRepository();
+    final CreditRepository creditRepository ;
 
     @Autowired
-    final CardServiceImpl cardService = new CardServiceImpl();
+    final CardServiceImpl cardService;
 
     @Autowired
-    final AccountServiceImpl accountService = new AccountServiceImpl();
+    final AccountServiceImpl accountService;
+
+    public CreditServiceImpl() {
+        mapperCredit = new MapperCredit();
+        creditRepository = new CreditRepository();
+        cardService = new CardServiceImpl();
+        accountService = new AccountServiceImpl();
+    }
 
     @Override
     public void getCredit() {
@@ -63,11 +74,18 @@ public class CreditServiceImpl implements CreditService {
         return creditRepository.getAll().stream().map(mapperCredit::toDTO).collect(Collectors.toList());
     }
 
+    private boolean validateCredit(final Long idClient) {
+        return creditRepository.getAll().stream().filter(credit -> credit.getIdClient().equals(idClient)).count() < 1L;
+    }
+
     @Override
     public MakeCreditResponseDTO makeCredit(final MakeCreditDTO makeCreditDTO) {
         final CardDTO cardDTO = cardService.read(makeCreditDTO.getIdCard());
         final AccountDTO accountDTO = accountService.read(cardDTO.getIdAccount());
 
+        if (!validateCredit(cardDTO.getIdClient())) {
+            throw new InvalidMakeCreditException("You have one credit, STOP TAKE CREDIT!!!");
+        }
         accountDTO.setAmount(accountDTO.getAmount().add(makeCreditDTO.getAmount()));
         cardDTO.setAmount(cardDTO.getAmount().add(makeCreditDTO.getAmount()));
 
