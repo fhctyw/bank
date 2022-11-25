@@ -4,7 +4,7 @@ import bank.entity.Currency;
 import bank.exception.ServiceException;
 import bank.util.JacksonUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@Component
+@Repository
 public class CurrencyRepository {
     final private String source = "currencies.txt";
     private List<Currency> currencies = new ArrayList<>();
