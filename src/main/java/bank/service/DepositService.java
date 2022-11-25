@@ -12,4 +12,5 @@ public interface DepositService {
     void delete(Long id);
     List<DepositDTO> getAll();
     DepositDTO putDeposit(MakeDepositDTO dto);
+    void withdrawDeposit();
 }

@@ -1,9 +1,6 @@
 package bank.service.impl;
 
-import bank.dto.AccountDTO;
-import bank.dto.CardDTO;
-import bank.dto.DepositDTO;
-import bank.dto.MakeDepositDTO;
+import bank.dto.*;
 import bank.entity.Deposit;
 import bank.exception.InvalidDepositException;
 import bank.mapper.MapperDeposit;
@@ -13,7 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -86,5 +86,29 @@ public class DepositServiceImpl implements DepositService {
         depositDTO = create(depositDTO);
 
         return depositDTO;
+    }
+
+    private void checkDeposit(final DepositDTO depositDTO, final LocalDateTime currentTime) {
+        if (depositDTO.getWithdrawTime().isBefore(currentTime)) {
+            final CardDTO cardDTO = cardService.read(depositDTO.getCardId());
+            final AccountDTO accountDTO = accountService.read(cardDTO.getIdAccount());
+            final BigDecimal depositAmount = depositDTO.getAmount()
+                    .multiply(BigDecimal.valueOf(depositDTO.getPercentage()))
+                    .add(depositDTO.getAmount());
+
+            cardDTO.setAmount(cardDTO.getAmount().add(depositAmount));
+            accountDTO.setAmount(accountDTO.getAmount().add(depositAmount));
+
+            accountService.update(accountDTO);
+            cardService.update(cardDTO);
+
+            delete(depositDTO.getId());
+        }
+    }
+
+    @Override
+    public void withdrawDeposit() {
+        final LocalDateTime currentTime = LocalDateTime.now();
+        depositRepository.getDeposits().forEach(e -> checkDeposit(mapperDeposit.toDTO(e), currentTime));
     }
 }
