@@ -9,9 +9,9 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MakeCreditResponseDTO {
-    @NotNull
-    private CreditDTO creditDTO;
-    @NotNull
-    private CardDTO cardDTO;
+public class MakeCardDTO {
+@NotNull
+        private Long IdClient;
+        @NotNull
+        private String codeCurrency;
 }

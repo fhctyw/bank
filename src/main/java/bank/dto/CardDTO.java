@@ -20,6 +20,7 @@ public class CardDTO {
     @Positive
     private BigDecimal amount;
     @NotNull
+    @Positive
     private Long cardNumber;
     @NotNull
     private Long idClient;

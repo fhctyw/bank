@@ -1,14 +1,26 @@
 package bank.service.impl;
 
+import bank.dto.AccountDTO;
 import bank.dto.CardDTO;
+import bank.dto.MakeCardDTO;
+import bank.dto.MakeCardResponseDTO;
+import bank.entity.Account;
 import bank.entity.Card;
+import bank.entity.Client;
+import bank.exception.ServiceException;
 import bank.mapper.MapperCard;
 import bank.repository.CardRepository;
+import bank.repository.ClientRepository;
+import bank.service.AccountService;
 import bank.service.CardService;
+import bank.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Positive;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,6 +30,12 @@ public class CardServiceImpl implements CardService {
     final MapperCard mapperCard = new MapperCard();
     @Autowired
     final CardRepository cardRepository = new CardRepository();
+    @Autowired
+    final AccountService accountService = new AccountServiceImpl();
+    @Autowired
+    final ClientRepository clientRepository = new ClientRepository();
+
+
 
     @Override
     public CardDTO create(final CardDTO dto) {
@@ -25,6 +43,37 @@ public class CardServiceImpl implements CardService {
         cardRepository.add(card);
         card = cardRepository.findById(cardRepository.getId());
         return mapperCard.toDto(card);
+    }
+
+    @Override
+    public MakeCardResponseDTO createCard(MakeCardDTO dto) {// client  codeCurrency CardDTO
+        AccountDTO accountDTO = new AccountDTO();
+        clientRepository.getClients().stream().filter(e->e.getId().equals(dto.getIdClient())).findFirst().orElseThrow(()->new ServiceException("No such Client id"));
+
+        if(accountService.getAll().stream().anyMatch(e -> e.getIdClient().equals(dto.getIdClient()))) {
+            if( accountService.getAll().stream().anyMatch(e -> e.getCodeCurrency().equals(dto.getCodeCurrency()))) {
+         accountDTO = accountService.getAll().stream().filter(e -> e.getCodeCurrency().equals(dto.getCodeCurrency())).findFirst().get();
+            }}
+
+       else {
+            accountDTO.setId(null);
+            accountDTO.setIdClient(dto.getIdClient());
+            accountDTO.setAmount(BigDecimal.ZERO);
+            accountDTO.setCodeCurrency(dto.getCodeCurrency());
+
+            accountDTO = accountService.create(accountDTO);
+        }
+
+        CardDTO cardDTO = new CardDTO();
+        cardDTO.setCardNumber(new Random().nextLong(0, 9999999999999999L));
+        cardDTO.setIdAccount(accountDTO.getId());
+        cardDTO.setAmount(BigDecimal.ZERO);
+        cardDTO.setId(null);
+        cardDTO.setIdClient(dto.getIdClient());
+
+        cardDTO = create(cardDTO);
+
+        return new MakeCardResponseDTO(accountDTO, cardDTO);
     }
 
     @Override
