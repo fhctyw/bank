@@ -6,6 +6,8 @@ import bank.service.DepositService;
 import bank.service.impl.DepositServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/deposit")
+@EnableScheduling
 public class DepositResource {
     @Autowired
     private final DepositService depositService = new DepositServiceImpl();
@@ -49,5 +52,10 @@ public class DepositResource {
     @PostMapping(value = "/make-deposit")
     public DepositDTO makeDeposit(final @Validated @RequestBody MakeDepositDTO depositDTO) {
         return depositService.putDeposit(depositDTO);
+    }
+
+    @Scheduled(fixedRate = 1000 * 60)
+    public void withdrawDeposit() {
+        depositService.withdrawDeposit();
     }
 }
